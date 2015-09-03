@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html lang="en">
+    
+    <head>
+        <title>Bucket List Item Details</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bucketlist.css' %}" />
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    </head>
+    
+    <body><p style="text-align:left; line-height:200%; font: arial; font-size:large; text-transform: uppercase;">
+        
+        <a href="/bucketlist/category/{{category_name_url}}/" class="btn btn-success">Back to {{category_name_url}}</a>
+
+        {% if filter_page %}
+                    Location: {{ filter_page.title }}
+                    <br>
+                    Country: {{ filter_page.country }}
+                    <br>
+                    Broad Group: {{ filter_page.category }}
+                    <br>
+                    Visted: {{ filter_page.was_done }}
+                    <br>
+                    Date Visted: {{ filter_page.datedone }}
+                    <br>
+                    Likes: {{ filter_page.likes }}
+                    <br>
+                    Notes: {{ filter_page.notes }} 
+                    <br>
+                    <br>
+                    
+                    <input type="button" onclick="saveAll()" value="Save all Edits">
+
+                    Add a place
+                    <form id="myForm" action="form_action.asp">
+                        Place: <input type="text" name="place-title" value ="{{ place.title }}">
+                        Category: <input type="text" name="place-category" value ="{{ place.category }}">
+                        Place Address: <input type="text" name="place-address" value ="{{ place.address }}">
+                        Place Notes: <input type="text" name="place-notes" value ="{{ place.notes }}">
+                        <input type="button" onclick="addPlace()" value="Add Place">
+                    </form>
+
+
+                    {% for place in filter_places %}
+                        <div class="row">
+                            <form method = "post">
+                                Place: <input type="text" name="place-title" value ="{{ place.title }}">
+                                Category: <input type="text" name="place-category" value ="{{ place.category }}">
+                                Place Address: <input type="text" name="place-address" value ="{{ place.address }}">
+                                Place Notes: <input type="text" name="place-notes" value ="{{ place.notes }}">
+                                <input type="button" onclick="deletePlace()" value="Delete Place">
+                            </form>
+                        </div>
+                    {% endfor %}
+
+
+        {% else %}
+            <strong>There are no pages present.</strong>
+        {% endif %}
+        
+        {{changes}}
+       
+    </p></body>
+</html>

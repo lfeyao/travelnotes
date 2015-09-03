@@ -1,0 +1,10 @@
+{{filter_page_name}} Add a Bucket List Item to Category: {{ category_name }}
+
+{% block content %}
+    <h1>New Bucket List Item</h1>
+    <form method="POST" class="page_form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}

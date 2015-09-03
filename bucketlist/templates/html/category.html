@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Rango</title>
+        <title>BucketList Category</title>
     </head>
 
     
@@ -9,13 +9,13 @@
         <h1>{{ category_name }}</h1>
         {% if category %}
             
-            <a href="/add_page/">Add a New Page</a>
-            <a href="bucketlist/{{ category_name }}/add_page/">Add a New Page</a>
-
+            <a href="/bucketlist">Back to Bucket List</a>
+            <a href="add_page/">Add a New Page</a>
+            
             {% if pages %}
             <ul>
                 {% for page in pages %}
-                <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+                <li><a href="{{ page.title }}">{{ page.title }}</a></li>
                 {% endfor %}
             </ul>
             {% else %}

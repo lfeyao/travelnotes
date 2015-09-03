@@ -2,31 +2,136 @@
 
 {% load staticfiles %}
 
-<html>
-
+<html lang="en">
     <head>
-        <title>Rango</title>
+        <title>Travel Bucket List</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bucketlist.css' %}" />
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Josefin+Slab">
+
+        <!-- DataTables CSS -->
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.css">
+          
+        <!-- jQuery -->
+        <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+          
+        <!-- DataTables -->
+        <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.js"></script>
+
+        <!-- Pictures -->
+        <!--start jquery.googleslides-->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.googleslides.css' %}" />
+        <script type="text/javascript" src="{% static 'src/jquery.googleslides.js' %}"></script>
+        
+        <script type="text/javascript">
+        $(document).ready(function () {
+            $("#pictureframe").googleslides({ userid: '114388032679125757664', albumid: '6190318895951574545', authkey: 'Gv1sRgCPeE8Z2kn5iC4AE',
+             imgmax: 600,
+             fadespeed: 500,
+             time: 8000,
+             caption: false,
+            });
+        });
+        </script>
+        
+        <script>
+        $(document).ready(function(){
+            $('#myTable').DataTable();
+        });
+        </script>
+        
+
     </head>
+    
+    <!--p class="uppercase">
+    <a href="/bucketlist/about/">About</a><br />
+    </p>
+       <div class="row">
+                <a href="/bucketlist/add_category/" class="btn btn-success">[Add Bucket List Category]</a>
+                <a href="/bucketlist/category/{{ filter_category_name_url }}/edit/" class="btn btn-warning">[Edit Bucket List Category]</a>
+                <a href="/bucketlist/category/{{ filter_category_name_url }}/delete/" class="btn btn-danger">[Delete Bucket List Category]</a>
+            </div>
+    -->
 
     <body>
-        <h1>Rango says...</h1>
-        hello world! <strong>{{ boldmessage }}</strong><br />
-        <a href="/bucketlist/about/">About</a><br />
+        <div class="container-fluid">     
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <a href ="/bucketlist/" class="navbar-brand" id="nav_title">Dan & Cat's Travel Notebook</a>
+                </div>
+                <div id ="nav_header"
+                    <ul class="nav navbar-nav">
+                        {% if full_categories %}
+                            {% for category in full_categories %}
+                                <li class= "{%if filter_category.name == category.name%}active {%endif%}"><a href="/bucketlist/category/{{ category.name_url }}">{{ category.name }}</a></li>
+                            {% endfor %}
+                        {% else %}
+                            <strong>There are no categories present.</strong>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
 
-        <a href="/bucketlist/add_category/">Add a New Category</a><br />
-        
-        {% if categories %}
-            <ul>
-                {% for category in categories %}
-                <!-- Following line changed to add an HTML hyperlink -->
-                <li><a href="/bucketlist/category/{{ category.url }}">{{ category.name }}</a></li>
-                {% endfor %}
-            </ul>
-       {% else %}
-            <strong>There are no categories present.</strong>
-       {% endif %}
-        
-        <img src="{% static "images/karin.jpg" %}" alt="Picture of Karin" /> <!-- New line -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div id='pictureframe'></div>
+                </div>
+                <div class="col-md-6">
+                    <div id="map"></div>
+                </div>
+            </div>
+
+            <br>
+            <br>         
+                
+            <div class="panel panel-primary">
+                <div class="panel-heading" id="panel_title">
+                    Travel Destinations        
+                </div>
+
+                <div class="panel-body" id="panel_body">
+                    <table id="myTable" class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Destination</th>
+                            <th>Region</th>
+                            <th>Country/State</th>
+                            <th>Years Visted</th>
+                            <th>Picture Link</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% if filter_pages %}
+                                {% for page in filter_pages %}
+                                    <tr>
+                                        <td><a href="/bucketlist/category/{{ page.category_url }}/{{ page.name_url }}">{{ page.name }}</a></td>
+                                        <td>{{ page.category }}</td>
+                                        <td>{{ page.country }}</td>
+                                        <td>{{ page.years_visted}}</td>
+                                        {% if page.picture_link %}
+                                            <td><a target="_blank" href="{{page.picture_link}}">[See Pictures]</a></td>
+                                        {% else %}
+                                            <td></td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                    <tr>
+                                        <td>No Locations Added</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </p></div>
+                </p>
+            </div>
+        </div>
     </body>
 
 </html>

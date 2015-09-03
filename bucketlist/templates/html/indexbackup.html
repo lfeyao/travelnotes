@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html lang="en">
+    <head>
+        <title>Bucket List App</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bucketlist.css' %}" />
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+        <!-- DataTables CSS -->
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.css">
+          
+        <!-- jQuery -->
+        <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+          
+        <!-- DataTables -->
+        <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.js"></script>
+
+    </head>
+    
+    <p class="uppercase">
+    <a href="/bucketlist/about/">About</a><br />
+    </p>
+    
+    <script>
+        $(document).ready(function(){
+            $('#myTable').DataTable();
+        });
+    </script> 
+
+    <body>
+        <div class="container-fluid">
+            
+            <a href="/bucketlist/add_category/" class="btn btn-success">[Add Bucket List Category]</a>
+            <a href="/bucketlist/category/{{ filter_category_name_url }}/edit/" class="btn btn-warning">[Edit Bucket List Category]</a>
+            <a href="/bucketlist/category/{{ filter_category_name_url }}/delete/" class="btn btn-danger">[Delete Bucket List Category]</a>
+            <br>
+            <br>
+
+            <ul class="nav nav-tabs nav-justified">
+                <li class= "{%if filter_category_name == "all" or filter_category_name == NULL %}active {%endif%}"><a href="/bucketlist/category/all">All</a></li>
+
+                {% if full_categories %}
+                    {% for category in full_categories %}
+                        <li class= "{%if filter_category_name == category.name%}active {%endif%}"><a href="/bucketlist/category/{{ category.url }}">{{ category.name }}</a></li>
+                    {% endfor %}
+                {% else %}
+                    <strong>There are no categories present.</strong>
+                {% endif %}
+            </ul>
+            
+                
+            <div class="panel panel-primary">
+                <div class="panel-heading"><p style="text-align:left; font-size:large; font-weight: bold; text-decoration: underline">
+                    Bucket List Items        
+
+                    <span style="float:right;">
+                        <a href="/bucketlist/category/{{ filter_category_name_url }}/add/" class="btn btn-danger">Add To Bucket List</a>
+                    </span>
+                </p></div>
+                
+                <div class="panel-body"><p style="text-align:left; line-height:300%; text-transform: uppercase;">
+                    <table id="myTable" class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Location</th>
+                            <th>Category</th>
+                            <th>Country/State</th>
+                            <th>Years Visted</th>
+                            <th>Picture Link</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% if filter_pages %}
+                                {% for page in filter_pages %}
+                                    <tr>
+                                        <td><a href="/bucketlist/category/{{ filter_category_name_url }}/{{ page.url }}">{{ page.name }}</a></td>
+                                        <td>{{ page.category }}</td>
+                                        <td>{{ page.country }}</td>
+                                        <td>{{ page.years_visted}}</td>
+                                        {% if page.picture_link %}
+                                            <td><a target="_blank" href="{{page.picture_link}}">[See Pictures]</a></td>
+                                        {% else %}
+                                            <td></td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                    <tr>
+                                        <td>No Locations Added</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </p></div>
+                </p>
+            </div>
+        </div>
+    
+        <img src="{% static "images/karin.jpg" %}" alt="Picture of Karin" /> <!-- New line -->
+    </body>
+
+</html>

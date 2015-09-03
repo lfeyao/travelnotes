@@ -1,0 +1,14 @@
+.googleslides { padding: 0px; overflow:hidden; }
+.googleslide  { display:none; position:relative; }
+.googleslide a:link { text-decoration:none; }
+.googleslide img {min-width: inherit; max-width:inherit;}
+.googleslide .caption { padding: 0px 0px 0px 0px; }
+.googleslide .captionWrapper {
+	background-color:#000000;
+	color:white;
+	opacity:0;
+	padding:0;
+	bottom:0px;
+	overflow:none;
+	position:absolute;	
+}
