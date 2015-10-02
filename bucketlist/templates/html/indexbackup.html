@@ -4,69 +4,188 @@
 
 <html lang="en">
     <head>
-        <title>Bucket List App</title>
+        <title>Travel Bucket List</title>
+        
         <link rel="stylesheet" type="text/css" href="{% static 'css/bucketlist.css' %}" />
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-
-        <!-- DataTables CSS -->
-        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.css">
-          
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Josefin+Slab">
+        
         <!-- jQuery -->
         <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-          
+
+        <!-- Pictures -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.googleslides.css' %}" />
+        <script type="text/javascript" src="{% static 'src/jquery.googleslides.js' %}"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#pictureframe").googleslides({ userid: '114388032679125757664', albumid: '6190318895951574545', authkey: 'Gv1sRgCPeE8Z2kn5iC4AE',
+                 imgmax: 600,
+                 fadespeed: 500,
+                 time: 8000,
+                 caption: false,
+                });
+            });
+        </script>
+
         <!-- DataTables -->
         <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.js"></script>
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.css">
+        
+        <script>
+            $(document).ready(function(){
+                $('#myTable').DataTable( {
+                    "paging":   false,
+                    "ordering": true,
+                    "info":     true
+                });
+            });
+        </script>
+        
+        <!-- Google Maps API -->
+        <!-- <script src="https://maps.googleapis.com/maps/api/js?callback=initialize" async defer></script> -->
+        <script src="https://maps.googleapis.com/maps/api/js"></script>
 
+        <script type="text/javascript">
+            var map;
+            var geocoder;
+
+            function initialize() {                              
+                geocoder = new google.maps.Geocoder();                                       
+
+                var mapCanvas = document.getElementById('globalmap');
+                
+                var latlng = new google.maps.LatLng(20, 0);
+
+                var mapOptions = {
+                    center: latlng,
+                    zoom: 1,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
+
+                map = new google.maps.Map(mapCanvas, mapOptions);
+                
+                geocodeAddress("{{filter_category.name}}");
+
+                //setMarker("Peru");
+                //setAllMarkers();
+            }
+            
+            function geocodeAddress(address) {
+
+                geocoder.geocode({'address': address}, function(results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                        map.setCenter(results[0].geometry.location);
+                        map.setZoom(3);
+                    }
+                });
+            }
+
+            function setMarker(address){
+                geocoder.geocode({'address': address}, function(results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                      var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                      });
+                    }
+                    else {
+                        if (status == "OVER_QUERY_LIMIT") {    
+                            setTimeout(function() {setMarker(address);}, 10);
+                        }
+                        else {
+                            alert("Geocode was not successful for the following reason: " + status);
+                        }
+                    }
+                });
+            }
+
+            function sleep(milliseconds) {
+                var start = new Date().getTime();
+                for (var i = 0; i < 1e7; i++) {
+                    if ((new Date().getTime() - start) > milliseconds){
+                        break;
+                    }
+                }
+            }
+
+            function setAllMarkers(){
+                {% for page in filter_pages %}
+                    setMarker('{{page.name}}, {{page.country}}');
+                {% endfor %}
+            }
+
+            function test(){
+                setMarker("Peru");
+            }
+
+            google.maps.event.addDomListener(window, 'load', initialize);
+            google.maps.event.addDomListener(window, 'load', setAllMarkers);
+            //google.maps.event.addDomListener(window, 'load', test);
+        </script>
+        
     </head>
-    
-    <p class="uppercase">
-    <a href="/bucketlist/about/">About</a><br />
-    </p>
-    
-    <script>
-        $(document).ready(function(){
-            $('#myTable').DataTable();
-        });
-    </script> 
 
     <body>
-        <div class="container-fluid">
-            
-            <a href="/bucketlist/add_category/" class="btn btn-success">[Add Bucket List Category]</a>
-            <a href="/bucketlist/category/{{ filter_category_name_url }}/edit/" class="btn btn-warning">[Edit Bucket List Category]</a>
-            <a href="/bucketlist/category/{{ filter_category_name_url }}/delete/" class="btn btn-danger">[Delete Bucket List Category]</a>
-            <br>
-            <br>
+        <script>       
+            // initialize();
+            // geocodeAddress("Australia");
+            // setMarker("Germany");
+        </script>
 
-            <ul class="nav nav-tabs nav-justified">
-                <li class= "{%if filter_category_name == "all" or filter_category_name == NULL %}active {%endif%}"><a href="/bucketlist/category/all">All</a></li>
+        <div class="container-fluid">     
+            {% if user.is_authenticated %}
+                <div align = "right"><a href="/bucketlist/logout/">Sign Out</a></div>
+            {% else %}
+                <a href="/bucketlist/login/" align="right">Sign In</a>
+            {% endif %}
 
-                {% if full_categories %}
-                    {% for category in full_categories %}
-                        <li class= "{%if filter_category_name == category.name%}active {%endif%}"><a href="/bucketlist/category/{{ category.url }}">{{ category.name }}</a></li>
-                    {% endfor %}
-                {% else %}
-                    <strong>There are no categories present.</strong>
-                {% endif %}
-            </ul>
-            
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <a href ="/bucketlist/" class="navbar-brand" id="nav_title">Dan & Cat's Travel Notebook</a>
+                </div>
+                <div id ="nav_header"
+                    <ul class="nav navbar-nav">
+                        {% if full_categories %}
+                            {% for category in full_categories %}
+                                <li class= "{%if filter_category.name == category.name%}active {%endif%}">
+                                    <a href="/bucketlist/category/{{ category.name_url }}"> {{ category.name }} </a>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            <strong>There are no categories present.</strong>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="pictureframe"></div>
+                </div>
+                <div class="col-md-6">
+                    <div id="globalmap"></div>
+                </div>
+            </div>
+
+            <br>
+            <br>         
                 
             <div class="panel panel-primary">
-                <div class="panel-heading"><p style="text-align:left; font-size:large; font-weight: bold; text-decoration: underline">
-                    Bucket List Items        
+                <div class="panel-heading" id="panel_title">
+                    Travel Destinations
 
-                    <span style="float:right;">
-                        <a href="/bucketlist/category/{{ filter_category_name_url }}/add/" class="btn btn-danger">Add To Bucket List</a>
-                    </span>
-                </p></div>
-                
-                <div class="panel-body"><p style="text-align:left; line-height:300%; text-transform: uppercase;">
+                    <div class="pull-right">
+                        <a href="/bucketlist/category/add" class="btn btn-success">Add a Destination</a>
+                    </div>  
+                </div>
+
+                <div class="panel-body" id="panel_body">
                     <table id="myTable" class="table table-striped">
                         <thead>
                           <tr>
-                            <th>Location</th>
-                            <th>Category</th>
+                            <th>Destination</th>
+                            <th>Region</th>
                             <th>Country/State</th>
                             <th>Years Visted</th>
                             <th>Picture Link</th>
@@ -76,7 +195,7 @@
                             {% if filter_pages %}
                                 {% for page in filter_pages %}
                                     <tr>
-                                        <td><a href="/bucketlist/category/{{ filter_category_name_url }}/{{ page.url }}">{{ page.name }}</a></td>
+                                        <td><a href="/bucketlist/category/{{ page.category_url }}/{{ page.name_url }}">{{ page.name }}</a></td>
                                         <td>{{ page.category }}</td>
                                         <td>{{ page.country }}</td>
                                         <td>{{ page.years_visted}}</td>
@@ -103,8 +222,6 @@
                 </p>
             </div>
         </div>
-    
-        <img src="{% static "images/karin.jpg" %}" alt="Picture of Karin" /> <!-- New line -->
     </body>
 
 </html>

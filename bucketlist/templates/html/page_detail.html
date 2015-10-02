@@ -1,0 +1,322 @@
+{% extends 'html/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Travel Bucket List{% endblock %}
+
+{% block custom_scripts %}        
+<!-- Switch -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-switch.css' %}" />
+<script type="text/javascript" src="{% static 'src/bootstrap-switch.js' %}"></script>
+<script type="text/javascript" src="{% static 'src/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'src/main.js' %}"></script>
+<script type="text/javascript" src="{% static 'src/highlight.js' %}"></script>
+
+<!-- Pictures -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/jquery.googleslides.css' %}" />
+<script type="text/javascript" src="{% static 'src/jquery.googleslides.js' %}"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#detailpictureframe").googleslides({ userid: '{{filter_page.user_id}}', albumid: '{{filter_page.album_id}}', authkey: '{{filter_page.auth_key}}',
+         imgmax: 583,
+         fadespeed: 500,
+         time: 8000,
+         caption: false,
+        });
+
+        $("#detailpictureframe").hide();
+    });
+</script>
+
+<!-- Google Maps API -->
+<script src="https://maps.googleapis.com/maps/api/js?language=en"></script>
+<script type="text/javascript">
+    var geocoder;
+    var map;
+
+    function initialize() {
+        var mapCanvas = document.getElementById('detailmap');               
+        geocoder = new google.maps.Geocoder();
+        var address = '{{filter_page.name}}, {{filter_page.country}}';
+        
+        //location = getUrlVars()["location"];
+        //alert(location);
+
+        var latlng = new google.maps.LatLng(-34.397, 150.644);
+
+        geocoder.geocode({ 'address': address}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                var mapOptions = {
+                    //center: latlng,
+                    center: results[0].geometry.location,
+                    zoom: 5,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
+
+                map = new google.maps.Map(mapCanvas, mapOptions);
+                //var marker = new google.maps.Marker({map: map, position: results[0].geometry.location});
+                //map.setCenter(results[0].geometry.location);
+            }
+            else{
+                var mapOptions = {
+                    center: latlng,
+                    zoom: 5,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                    //var marker = new google.maps.Marker({map: map, position: results[0].geometry.location});
+                }
+                map = new google.maps.Map(mapCanvas, mapOptions);    
+            }
+        });
+
+        //geocodeAddress("Germany");
+    }
+
+    function geocodeAddress(address, place_name) {
+        if (address){ 
+            geocoder.geocode({'address': address}, function(results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+                    map.setZoom(15);
+                    var marker = new google.maps.Marker({map: map, position: results[0].geometry.location});
+                } 
+                else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+        else
+            geocoder.geocode({'place_name': place_name}, function(results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+                    map.setZoom(15);
+                    var marker = new google.maps.Marker({map: map, position: results[0].geometry.location});
+                } 
+                else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+<script>     
+    $(document).ready(function() {
+        $('#picture_toggle').on('switchChange.bootstrapSwitch', function () {
+            if($('#picture_toggle').prop('checked')){                       
+                $("#detailpictureframe").show();
+                $("#detailcontainer").hide();        
+            }
+            else{
+                $("#detailpictureframe").hide();
+                $("#detailcontainer").show();
+            }
+        });
+    });
+</script>
+
+{% endblock %}
+
+{% block custom_style %}
+<style>
+    .panel > .panel-custom {
+
+    }
+
+    .panel-default > .panel-heading-see {
+        background: #8B5E85;
+        color: #ffffff;
+
+        font-size: 30px;
+        font-family: 'Josefin Slab';
+        font-weight: 600;
+    }
+
+    .panel-default > .panel-heading-eat {
+        background: #516B5C;
+        color: #ffffff;
+
+        font-size: 30px;
+        font-family: 'Josefin Slab';
+        font-weight: 600;
+    }
+
+    .panel-default > .panel-heading-sleep {
+        background: #595255;
+        color: #ffffff;
+
+        font-size: 30px;
+        font-family: 'Josefin Slab';
+        font-weight: 600;
+    }
+    
+    #verticalcontainer{
+        vertical-align:middle;
+    }
+    
+    #custom-label{
+    
+        font-size: 18px;
+        font-family: 'Josefin Slab';
+        font-weight: 600;
+    }
+
+    #list-item-custom{
+        
+        font-size: 18px;
+        font-family: 'Josefin Slab';
+        font-weight: 600;
+    }
+
+     #custom-text{
+        color: #000000;
+        font-size: 18px;
+        font-family: 'Josefin Slab';
+        font-weight: 600;
+    }
+
+</style>
+{% endblock %}
+
+{% block body_block_1 %}
+<div class="panel panel-primary">
+    <div class="panel-heading" id="panel_title">
+        {{ filter_page.name }}
+
+        {% if perms.bucketlist.can_change_page %}
+            <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/edit" class="btn btn-warning">Edit Destination</a>
+            <!-- <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/places" class="btn btn-danger">Edit Places</a> -->
+        {% endif %}
+
+        <div class="pull-right"> Pictures <input id="picture_toggle" type="checkbox" data-on-color="success" data-off-color="danger"></div>      
+    </div>
+
+    <div class="panel-body" id="panel_body">
+        <div class="col-md-6">
+            <div id="detailcontainer">    
+                <div class="row">
+                    <div class="col-xs-6 col-md-4"><b>Country:</b></div>
+                    <div class="col-xs-12 col-md-8">{{ filter_page.country }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-md-4"><b>Years Visted:</b></div>
+                    <div class="col-xs-12 col-md-8">{{ filter_page.years_visted }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-md-4"><b>Picture Link:</b></div>
+                    {% if filter_page.picture_link %}
+                        <div class="col-xs-12 col-md-8"><a target="_blank" href="{{filter_page.picture_link}}">[See Pictures]</a></div>
+                    {% else %}
+                    {% endif %}
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-md-4"><b>Notes:</b></div>
+                    <div class="col-xs-12 col-md-8">
+                        <div class="notesdiv">{{ filter_page.notes }}</div>
+                    </div>
+                </div>
+            </div>
+            <div id="detailpictureframe"></div>
+        </div>
+
+        <div class="col-md-6">
+            <div id="detailmap"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block body_block_2 %}
+<!-- Locations -->
+<div class="panel panel-default panel-custom">
+    <div class="panel-heading panel-heading-see">
+        <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/add" class="btn btn-default">
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+        </a>
+
+        See
+    </div>
+    <div class="list-group list-group-custom">
+        {% for place in filter_see_places %}
+            <li class="list-group-item" id="list-item-custom">
+                <span class="label label-primary" id = "custom-label">Votes: {{place.likes}}</span>
+                <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/upvote" class="btn btn-success btn-sm">
+                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                </a>
+                <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/downvote" class="btn btn-danger btn-sm">
+                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                </a>
+                <a href="#" onClick="geocodeAddress('{{place.address}}, {{place.name}}'); return false" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-record" aria-hidden="true"></span>
+                </a>
+
+                <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/" id="custom-text">
+                    <b>{{ place.name }} </b> - {{ place.notes }}
+                </a>
+            </li>
+        {% endfor %}
+    </div>
+</div>
+ 
+<div class="panel panel-default panel-custom">
+    <div class="panel-heading panel-heading-eat">
+        <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/add" class="btn btn-default">
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+        </a>
+
+        Eat
+    </div>
+    <div class="list-group list-group-custom">
+        {% for place in filter_eat_places %}
+            <li class="list-group-item" id="list-item-custom">
+                <span class="label label-primary" id = "custom-label">Votes: {{place.likes}}</span>
+                <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/upvote" class="btn btn-success btn-sm">
+                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                </a>
+                <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/downvote" class="btn btn-danger btn-sm">
+                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                </a>
+                <a href="#" onClick="geocodeAddress('{{place.address}}, {{place.name}}'); return false" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-record" aria-hidden="true"></span>
+                </a>
+
+                <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/" id="custom-text">
+                    <b>{{ place.name }} </b> - {{ place.notes }}
+                </a>
+            </li>
+        {% endfor %}
+    </div>
+</div>
+
+
+<div class="panel panel-default panel-custom">
+    <div class="panel-heading panel-heading-sleep">
+        <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/add" class="btn btn-default">
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+        </a>
+
+        Sleep
+    </div>
+    <div class="list-group list-group-custom">
+        {% for place in filter_sleep_places %}
+            <li class="list-group-item" id="list-item-custom">
+                <span class="label label-primary" id = "custom-label">Votes: {{place.likes}}</span>
+                <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/upvote" class="btn btn-success btn-sm">
+                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                </a>
+                <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/downvote" class="btn btn-danger btn-sm">
+                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                </a>
+                <a href="#" onClick="geocodeAddress('{{place.address}}, {{place.name}}'); return false" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-record" aria-hidden="true"></span>
+                </a>
+
+                <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/" id="custom-text">
+                    <b>{{ place.name }} </b> - {{ place.notes }}
+                </a>
+            </li>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

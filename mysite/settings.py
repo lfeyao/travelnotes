@@ -110,3 +110,5 @@ STATICFILES_DIRS = (
     '/var/www/static/',
 )
 """
+
+LOGIN_URL = '/bucketlist/login/'

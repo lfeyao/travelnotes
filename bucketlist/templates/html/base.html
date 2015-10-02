@@ -4,10 +4,54 @@
 
 <html lang="en">
     <head>
-        <title>Travel Bucket List</title>
+        <title>{% block title %}{% endblock %}</title>
         <link rel="stylesheet" type="text/css" href="{% static 'css/bucketlist.css' %}" />
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Josefin+Slab">
+        
+        <!-- <script type="text/javascript" src="{% static 'src/bootstrap.min.js' %}"></script> -->
+
+        <!-- jQuery -->
+        <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+        {% block custom_scripts %}{% endblock %}
+        {% block custom_style %}{% endblock %}
     </head>
     
+   <body>
+        <div class="container-fluid">
+            {% if user.is_authenticated %}
+            <div align = "right"><a href="/bucketlist/logout/">Sign Out</a></div>
+            {% else %}
+                <a href="/bucketlist/login/" align="right">Sign In</a>
+            {% endif %}
+
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <a href ="/bucketlist/" class="navbar-brand" id="nav_title">Dan & Cat's Travel Notebook</a>
+                </div>
+                <div id ="nav_header"
+                    <ul class="nav navbar-nav">
+                        {% if full_categories %}
+                            {% for category in full_categories %}
+                                <li class= "{%if filter_category.name == category.name%}active {%endif%}">
+                                    <a href="/bucketlist/category/{{ category.name_url }}"> {{ category.name }} </a>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            <strong>There are no categories present.</strong>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        
+            <div>
+                {% block body_block_1 %}{% endblock %}
+            </div>
+
+            <div>
+                {% block body_block_2 %}{% endblock %}
+            </div>
+        </div>
+    </body>
+</html>

@@ -2,25 +2,25 @@
 
 {% load staticfiles %}
 
-{% block title %}Add Destination{% endblock %}
+{% block title %}Edit Place{% endblock %}
 
 {% block custom_style %}
 <style>
     #placecontainer{
-        font-size: 20px;
+        font-size: 18px;
         font-family: 'Josefin Slab';
         font-weight: 600;
     }
 
     #namefield{
-        font-size: 20px;
+        font-size: 18px;
         width: 100%;
         font-family: 'Josefin Slab';
         font-weight: 600;
     }
 
-    #countryfield{
-        font-size: 20px;
+    #addressfield{
+        font-size: 14px;
         width: 100%;
         font-family: 'Josefin Slab';
         font-weight: 600;
@@ -31,7 +31,7 @@
 
         width: 100%;
         height: 225px;
-        font-size: 20px;
+        font-size: 14px;
     }
 
     #floating-panel {
@@ -51,11 +51,6 @@
       padding-left: 10px;
     }
 
-    #pagemap{
-        height: 400px;
-        background-color: #CCC;
-        border: 6px solid #8B5E85;
-    }
 </style>
 {% endblock %}
 
@@ -70,7 +65,7 @@
     function initialize() {
         geocoder = new google.maps.Geocoder();                                       
 
-        var mapCanvas = document.getElementById('pagemap');
+        var mapCanvas = document.getElementById('detailmap');
         
         var latlng = new google.maps.LatLng(20, 0);
 
@@ -94,7 +89,7 @@
         geocoder.geocode({'address': address}, function(results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
                 map.setCenter(results[0].geometry.location);
-                map.setZoom(5);
+                map.setZoom(15);
 
                 var marker = new google.maps.Marker({
                     map: map,
@@ -117,9 +112,9 @@
 
 <div class="panel panel-primary">
     <div class="panel-heading" id="panel_title">
-        Destination Details
+        Place Details
 
-        {% if perms.bucketlist.can_delete_page %}
+        {% if perms.bucketlist.can_delete_place %}
             <a href="delete" class="btn btn-danger">DELETE</a>
         {% endif %}
     </div>
@@ -127,7 +122,8 @@
     <div class="panel-body" id="panel_body">
         <div class="col-md-6">
             <div id="placecontainer">    
-                <form method="POST" class="place_form">                
+                <form method="POST" class="place_form">
+                    
                     {% csrf_token %}
                     
                     {% for field in form %}
@@ -149,18 +145,20 @@
                             <button type="submit" class="save btn btn-success">Save All Changes</button>
                         </div>
                     </div>
+                    
                 </form>
             </div>
         </div>
-        
+
         <div class="col-md-6">
             <div id="floating-panel">
                 <input id="address" type="textbox" placeholder="Enter a Destination...">
                 <input id="geocode" type="button" value="Go!">
             </div>
 
-            <div id="pagemap"></div>
+            <div id="detailmap"></div>
         </div>
     </div>
 </div>
+
 {% endblock %}

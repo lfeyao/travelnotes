@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Page, Place
+from .models import Category, Page, Place, UserProfile
 
 
 class PageAdmin(admin.ModelAdmin):
@@ -8,9 +8,15 @@ class PageAdmin(admin.ModelAdmin):
     list_filter = ['category']
     search_fields = ['name']
 
+class PlaceAdmin(admin.ModelAdmin):
+    #inlines = [PageInline]
+    list_display = ('name', 'category', 'location', 'likes')
+    list_filter = ['category']
+    search_fields = ['name']
 
 # Register your models here.
 
 admin.site.register(Category)
 admin.site.register(Page, PageAdmin)
-admin.site.register(Place)
+admin.site.register(Place, PlaceAdmin)
+admin.site.register(UserProfile)

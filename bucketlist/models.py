@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.core.urlresolvers import reverse
-
+from django.contrib.auth.models import User
 
 def encode_url(str):
     return str.replace(' ', '_')
@@ -11,32 +11,55 @@ def decode_url(str):
 
 # Create your models here.
 
+class UserProfile(models.Model):
+    # This line is required. Links UserProfile to a User model instance.
+    user = models.OneToOneField(User)
+
+    # The additional attributes we wish to include.
+    website = models.URLField(blank=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
+
+    # Override the __unicode__() method to return out something meaningful!
+    def __str__(self):
+        return self.user.username
+
 class Category(models.Model):
     name = models.CharField(max_length=128, unique=True)
-    name_url = models.CharField(max_length=128)
+    name_url = models.CharField(max_length=128, blank=True, null=True)
 
     def create_category(self):
         self.name_url = encode_url(self.name)
-        
+
     def __str__(self):
         return self.name
 
+    class Meta:
+        permissions = ( 
+            ( "read_category", "Can read Category" ),
+        )
+
 class Page(models.Model):
     category = models.ForeignKey(Category)
-    category_url = models.CharField(max_length=128)
+    category_url = models.CharField(max_length=128, blank=True, null=True)
+    
     name = models.CharField(max_length=128)
-    name_url = models.CharField(max_length=128)
+    name_url = models.CharField(max_length=128, blank=True, null=True)
 
-    country = models.CharField(max_length=128)
+    country = models.CharField(max_length=128, blank=True, null=True)
     date_added = models.DateTimeField(default = timezone.now)
     was_done = models.BooleanField(default=False)
     years_visted = models.CommaSeparatedIntegerField(max_length=200, blank=True, null=True)
+    
     picture_link = models.URLField(blank=True, null=True)
+    user_id = models.CharField(default='114388032679125757664', max_length=128, blank=True, null=True)
+    album_id = models.CharField(max_length=128, blank=True, null=True)
+    auth_key = models.CharField(max_length=128, blank=True, null=True)
+
     likes = models.IntegerField(default=0)
     notes = models.TextField(blank=True) 
 
     def create_page(self):
-        self.category_url = encode_url(self.category)
+        self.category_url = self.category.name_url
         self.name_url = encode_url(self.name)
         self.date_added = timezone.now()
         self.was_done = False
@@ -62,14 +85,18 @@ class Place(models.Model):
     )
 
     name = models.CharField(max_length=128)
+    name_url = models.CharField(max_length=128, blank=True, null=True)
+
     location = models.ForeignKey(Page)
+
     category = models.CharField(max_length=10, choices=categorys)
     address = models.CharField(max_length=128, blank=True, null=True)
     likes = models.IntegerField(default=0)
-    notes = models.TextField(blank=True)
+    notes = models.TextField(blank=True, null=True)
+  
+    def create_place(self):
+        self.name_url = encode_url(self.name)
+        self.save()
 
-    #def get_absolute_url(self):
-    #    return reverse('detail', kwargs={'slug': self.slug})
-    
     def __str__(self):
         return self.name

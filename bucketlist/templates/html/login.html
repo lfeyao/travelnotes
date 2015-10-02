@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html lang="en">
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Josefin+Slab">
+</head>
+
+    <body>
+        <div class="jumbotron">
+            <div class="container-fluid">
+                <form class="form-signin" method="post" action="/bucketlist/login/">
+                    {% csrf_token %}
+                    <h2 class="form-signin-heading">Please Sign In</h2>
+                    
+                    <input type="text" name="username" class="form-control" placeholder="Username" size="10" required autofocus>
+                    <input type="password" name="password" class="form-control" placeholder="Password" size="10" required>
+
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" value="submit" style="margin-top:10px"> Sign in </button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

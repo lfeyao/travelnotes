@@ -8,12 +8,14 @@
 			  'albumid'			 : '6190318895951574545',
 			  'authkey' 		 : 'Gv1sRgCPeE8Z2kn5iC4AE',
 			  'imgmax'           : 460,
-			  'maxresults'		 : 100,
+			  'maxresults'		 : 1000,
 			  'random'			 : true,
 			  'caption'			 : true,
 			  'albumlink'		 : false,
 			  'time'	 		 : 5000,
-			  'fadespeed'		 : 1000
+			  'fadespeed'		 : 1000,
+			  'heightmax'		 : 500,
+			  'widthmax'		 : 800,
 	};
 			
 	var methods = {
@@ -34,8 +36,9 @@
                   authKeyStr = '&authkey=' + settings.authkey;
                 }
 
+                // &max-results=' + settings.maxresults
 				var albumJsonUrl = '<script src="https://picasaweb.google.com/data/feed/base/user/' + settings.userid + '/albumid/' + settings.albumid 
-					+ '?alt=json&kind=photo&max-results=' + settings.maxresults + '&hl=en_US&imgmax=' + settings.imgmax  
+					+ '?alt=json&kind=photo' + '&hl=en_US&imgmax=' + settings.imgmax  
 					+ authKeyStr
 					+ '&callback=jQuery.fn.googleslides.prepare_' + settings.albumid + '&fields=link,entry(link,media:group(media:content,media:description))">' 
 					+ '</sc' + 'ript>';
@@ -63,21 +66,26 @@
 				caption = item.media$group.media$description.$t;
 				slide = $('<div class="googleslide"></div>');
 				var slideInner = slide;
-				if (settings.albumlink == true) {
-					slide.append($('<a target="_blank" href="' + link + '"></a>'));
-					slideInner = slide.children().first();
-				}
 				
-				slideInner.append($('<img src="' + url + '" alt="' + caption + '"/>'));
+				// only add if in dimensions
+				if (height <= settings.heightmax && width <= settings.widthmax){
+					if (settings.albumlink == true) {
+						slide.append($('<a target="_blank" href="' + link + '"></a>'));
+						slideInner = slide.children().first();
+					}
+					
+					slideInner.append($('<img src="' + url + '" alt="' + caption + '"/>'));
 
-				$("img", slideInner).width(width).height(height);
-				
-				if (settings.caption == true && caption != '') {
-					slideInner.append('<div class="captionWrapper"><div class="caption">' + caption + '</div></div>');
-					$(".captionWrapper", slideInner).width(settings.imgmax);
+					$("img", slideInner).width(width).height(height);
+					
+					if (settings.caption == true && caption != '') {
+						slideInner.append('<div class="captionWrapper"><div class="caption">' + caption + '</div></div>');
+						$(".captionWrapper", slideInner).width(settings.imgmax);
+					}
+					
+					slides.push(slide);
 				}
-				
-				slides.push(slide);
+
 			}
 			
 			if (settings.random == true) {
