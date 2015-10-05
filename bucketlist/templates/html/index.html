@@ -178,7 +178,7 @@
                     {% for page in filter_pages %}
                         {% if page.was_done == True %}
                             <tr>
-                                <td><a href="/bucketlist/category/{{ page.category_url }}/{{ page.name_url }}">{{ page.name }}</a></td>
+                                <td><a href="/category/{{ page.category_url }}/{{ page.name_url }}">{{ page.name }}</a></td>
                                 <td>{{ page.category }}</td>
                                 <td>{{ page.country }}</td>
                                 <td>{{ page.years_visted}}</td>
@@ -220,15 +220,15 @@
             <li class="list-group-item" id="list-item-custom">
                     <span class="label label-primary" id = "custom-label">Votes: {{page.likes}}</span>
                     
-                    <a href="/bucketlist/category/{{page.category_url}}/{{page.name_url}}/upvote" class="btn btn-success btn-sm">
+                    <a href="/category/{{page.category_url}}/{{page.name_url}}/upvote" class="btn btn-success btn-sm">
                         <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                     </a>
 
-                    <a href="/bucketlist/category/{{page.category_url}}/{{page.name_url}}/downvote" class="btn btn-danger btn-sm">
+                    <a href="/category/{{page.category_url}}/{{page.name_url}}/downvote" class="btn btn-danger btn-sm">
                         <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                     </a>
 
-                    <a href="/bucketlist/category/{{ page.category_url }}/{{ page.name_url }}" >
+                    <a href="/category/{{ page.category_url }}/{{ page.name_url }}" >
                         <b>{{ page.name }} / {{page.country}} </b> - {{ page.notes }} 
                     </a>
 

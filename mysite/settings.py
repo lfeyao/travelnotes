@@ -37,8 +37,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myapp',
-    'mainpage',
     'bucketlist',
 )
 
@@ -104,11 +102,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-"""
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-    '/var/www/static/',
-)
-"""
 
-LOGIN_URL = '/bucketlist/login/'
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, "static"),
+#     '/var/www/static/',
+# )
+
+LOGIN_URL = '/login/'

@@ -59,9 +59,6 @@ def index(request):
     # Render the response and return to the client.
     return render(request, 'html/index.html', context_dict)
 
-@login_required    
-def about(request):
-    return HttpResponse("About What? <a href='/bucketlist/'>Index</a>")
 
 @login_required
 def category(request, category_name_url):
@@ -90,7 +87,7 @@ def category(request, category_name_url):
         context_dict['upcoming_trips'] = upcoming_trips
 
     except Category.DoesNotExist:
-        return redirect('/bucketlist/')
+        return redirect('/')
 
     # Go render the response and return it to the client.
     return render(request, 'html/index.html', context_dict)
@@ -106,7 +103,7 @@ def add_category(request):
         if form.is_valid():
             new_category = form.save(commit=False)
             new_category.create_category()
-            return redirect('/bucketlist/category/' + new_category.name_url)
+            return redirect('/category/' + new_category.name_url)
         else:
             return index(request)
     else:
@@ -136,9 +133,9 @@ def edit_category(request, category_name_url):
             new_category = form.save(commit=False)
             new_category.save()
 
-            return redirect('/bucketlist/category/' + new_category.name_url)
+            return redirect('/category/' + new_category.name_url)
         else:
-            return redirect('/bucketlist/')
+            return redirect('/')
     else:
         # If the request was not a POST, display the form to enter details.
         form = CategoryForm(instance=filter_category)
@@ -181,7 +178,7 @@ def add_page(request, category_name_url = None):
             page = form.save(commit=False)
             page.create_page()
 
-            return redirect('/bucketlist/category/' + page.category_url + '/' + page.name_url)
+            return redirect('/category/' + page.category_url + '/' + page.name_url)
             # return category(request, page.category_url)
         else:
             return HttpResponse("Failed")
@@ -215,7 +212,7 @@ def edit_page(request, category_name_url, page_name_url):
             page = form.save(commit=False)
             page.create_page()
             new_page_url = page.name_url
-            return redirect('/bucketlist/category/' + category_name_url + '/' + new_page_url)
+            return redirect('/category/' + category_name_url + '/' + new_page_url)
             # return page_detail(request, category_name_url, new_page_url)
         else:
             return HttpResponse("Failed")
@@ -243,7 +240,7 @@ def delete_page(request, category_name_url, page_name_url):
 
     filter_page.delete()
 
-    return redirect('/bucketlist/')
+    return redirect('/')
 
 @login_required
 def add_place(request, category_name_url, page_name_url):
@@ -258,7 +255,7 @@ def add_place(request, category_name_url, page_name_url):
         if form.is_valid():
             place = form.save(commit=False)
             place.create_place()
-            return redirect('/bucketlist/category/' + category_name_url + '/' + page_name_url)
+            return redirect('/category/' + category_name_url + '/' + page_name_url)
             # return page_detail(request, category_name_url, page_name_url)
         else:
             return HttpResponse("Failed")
@@ -292,7 +289,7 @@ def edit_place(request, category_name_url, page_name_url, place_id):
             place = form.save(commit=False)
             place.save()
 
-            return redirect('/bucketlist/category/' + category_name_url + '/' + page_name_url)
+            return redirect('/category/' + category_name_url + '/' + page_name_url)
         else:
             return HttpResponse("Failed")
     else:
@@ -321,7 +318,7 @@ def delete_place(request, category_name_url, page_name_url, place_id):
 
     filter_place.delete()
 
-    return redirect('/bucketlist/category/' + category_name_url + '/' + page_name_url)
+    return redirect('/category/' + category_name_url + '/' + page_name_url)
 
 @login_required
 def vote_place(request, category_name_url, page_name_url, place_id, direction):
@@ -335,7 +332,7 @@ def vote_place(request, category_name_url, page_name_url, place_id, direction):
     
     filter_place.save()
 
-    return redirect('/bucketlist/category/' + category_name_url + '/' + page_name_url)
+    return redirect('/category/' + category_name_url + '/' + page_name_url)
 
 @login_required
 def vote_page(request, category_name_url, page_name_url, direction):
@@ -349,7 +346,7 @@ def vote_page(request, category_name_url, page_name_url, direction):
     
     filter_page.save()
 
-    return redirect('/bucketlist/')
+    return redirect('/')
 
 # User Registration View
 
@@ -436,7 +433,7 @@ def user_login(request):
                 # If the account is valid and active, we can log the user in.
                 # We'll send the user back to the homepage.
                 login(request, user)
-                return redirect('/bucketlist/')
+                return redirect('/')
             else:
                 # An inactive account was used - no logging in!
                 return HttpResponse("Your account is disabled.")
@@ -459,4 +456,4 @@ def user_logout(request):
     logout(request)
 
     # Take the user back to the homepage.
-    return redirect('/bucketlist/login')
+    return redirect('/login')

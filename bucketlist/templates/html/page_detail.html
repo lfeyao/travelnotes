@@ -185,8 +185,7 @@
         {{ filter_page.name }}
 
         {% if perms.bucketlist.can_change_page %}
-            <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/edit" class="btn btn-warning">Edit Destination</a>
-            <!-- <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/places" class="btn btn-danger">Edit Places</a> -->
+            <a href="/category/{{category_name_url}}/{{page_name_url}}/edit" class="btn btn-warning">Edit Destination</a>
         {% endif %}
 
         <div class="pull-right"> Pictures <input id="picture_toggle" type="checkbox" data-on-color="success" data-off-color="danger"></div>      
@@ -231,7 +230,7 @@
 <!-- Locations -->
 <div class="panel panel-default panel-custom">
     <div class="panel-heading panel-heading-see">
-        <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/add" class="btn btn-default">
+        <a href="/category/{{category_name_url}}/{{page_name_url}}/add" class="btn btn-default">
             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
         </a>
 
@@ -241,17 +240,17 @@
         {% for place in filter_see_places %}
             <li class="list-group-item" id="list-item-custom">
                 <span class="label label-primary" id = "custom-label">Votes: {{place.likes}}</span>
-                <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/upvote" class="btn btn-success btn-sm">
+                <a href="/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/upvote" class="btn btn-success btn-sm">
                     <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                 </a>
-                <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/downvote" class="btn btn-danger btn-sm">
+                <a href="/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/downvote" class="btn btn-danger btn-sm">
                     <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                 </a>
                 <a href="#" onClick="geocodeAddress('{{place.address}}, {{place.name}}'); return false" class="btn btn-default btn-sm">
                     <span class="glyphicon glyphicon-record" aria-hidden="true"></span>
                 </a>
 
-                <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/" id="custom-text">
+                <a href="/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/" id="custom-text">
                     <b>{{ place.name }} </b> - {{ place.notes }}
                 </a>
             </li>
@@ -261,7 +260,7 @@
  
 <div class="panel panel-default panel-custom">
     <div class="panel-heading panel-heading-eat">
-        <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/add" class="btn btn-default">
+        <a href="/category/{{category_name_url}}/{{page_name_url}}/add" class="btn btn-default">
             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
         </a>
 
@@ -271,17 +270,17 @@
         {% for place in filter_eat_places %}
             <li class="list-group-item" id="list-item-custom">
                 <span class="label label-primary" id = "custom-label">Votes: {{place.likes}}</span>
-                <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/upvote" class="btn btn-success btn-sm">
+                <a href="/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/upvote" class="btn btn-success btn-sm">
                     <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                 </a>
-                <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/downvote" class="btn btn-danger btn-sm">
+                <a href="/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/downvote" class="btn btn-danger btn-sm">
                     <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                 </a>
                 <a href="#" onClick="geocodeAddress('{{place.address}}, {{place.name}}'); return false" class="btn btn-default btn-sm">
                     <span class="glyphicon glyphicon-record" aria-hidden="true"></span>
                 </a>
 
-                <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/" id="custom-text">
+                <a href="/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/" id="custom-text">
                     <b>{{ place.name }} </b> - {{ place.notes }}
                 </a>
             </li>
@@ -292,7 +291,7 @@
 
 <div class="panel panel-default panel-custom">
     <div class="panel-heading panel-heading-sleep">
-        <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/add" class="btn btn-default">
+        <a href="/category/{{category_name_url}}/{{page_name_url}}/add" class="btn btn-default">
             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
         </a>
 
@@ -302,17 +301,17 @@
         {% for place in filter_sleep_places %}
             <li class="list-group-item" id="list-item-custom">
                 <span class="label label-primary" id = "custom-label">Votes: {{place.likes}}</span>
-                <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/upvote" class="btn btn-success btn-sm">
+                <a href="/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/upvote" class="btn btn-success btn-sm">
                     <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                 </a>
-                <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/downvote" class="btn btn-danger btn-sm">
+                <a href="/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/downvote" class="btn btn-danger btn-sm">
                     <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
                 </a>
                 <a href="#" onClick="geocodeAddress('{{place.address}}, {{place.name}}'); return false" class="btn btn-default btn-sm">
                     <span class="glyphicon glyphicon-record" aria-hidden="true"></span>
                 </a>
 
-                <a href="/bucketlist/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/" id="custom-text">
+                <a href="/category/{{category_name_url}}/{{page_name_url}}/{{place.id}}/" id="custom-text">
                     <b>{{ place.name }} </b> - {{ place.notes }}
                 </a>
             </li>
