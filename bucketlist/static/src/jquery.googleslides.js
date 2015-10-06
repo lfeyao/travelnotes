@@ -7,15 +7,15 @@
 			  'userid'			 : '114388032679125757664',
 			  'albumid'			 : '6190318895951574545',
 			  'authkey' 		 : 'Gv1sRgCPeE8Z2kn5iC4AE',
-			  'imgmax'           : 600,
+			  'imgmax'           : 1000,
 			  'maxresults'		 : 1000,
 			  'random'			 : true,
 			  'caption'			 : true,
 			  'albumlink'		 : false,
 			  'time'	 		 : 5000,
 			  'fadespeed'		 : 1000,
-			  'heightmax'		 : 1000,
-			  'widthmax'		 : 800,
+			  'heightmax'		 : 600,
+			  'widthmax'		 : 20000,
 	};
 			
 	var methods = {

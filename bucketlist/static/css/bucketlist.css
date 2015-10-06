@@ -53,18 +53,19 @@ p.lowercase {
     background-color: #000000;
     border: 5px solid #000000;
     border-radius: 0px;
-    display: block;
     margin: auto;
 }
 
 #detailpictureframe{
     background-color: #FFFFFF;
-    /*height: 400px;*/
+    border-radius: 0px;
+    margin: auto;
+
     /*border: 6px solid #FFFFFF;*/
 }
 
 #globalmap{
-    height: 409px;
+    height: 400px;
     background-color: #CCC;
     border: 5px solid #8B5E85;
     border-radius: 10px;
@@ -81,7 +82,8 @@ p.lowercase {
 #detailmap{
     height: 400px;
     background-color: #CCC;
-    border: 6px solid #8B5E85;
+    border: 5px solid #8B5E85;
+    border-radius: 10px;
 }
 
 #mycontainer{

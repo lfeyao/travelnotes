@@ -19,7 +19,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#detailpictureframe").googleslides({ userid: '{{filter_page.user_id}}', albumid: '{{filter_page.album_id}}', authkey: '{{filter_page.auth_key}}',
-         imgmax: 583,
+         imgmax: 650,
          fadespeed: 500,
          time: 8000,
          caption: false,
@@ -192,41 +192,41 @@
     </div>
 
     <div class="panel-body" id="panel_body">
-        <div class="col-md-6">
-            <div id="detailcontainer">    
-                <div class="row">
-                    <div class="col-xs-6 col-md-4"><b>Country:</b></div>
-                    <div class="col-xs-12 col-md-8">{{ filter_page.country }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-6 col-md-4"><b>Years Visted:</b></div>
-                    <div class="col-xs-12 col-md-8">{{ filter_page.years_visted }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-6 col-md-4"><b>Picture Link:</b></div>
-                    {% if filter_page.picture_link %}
-                        <div class="col-xs-12 col-md-8"><a target="_blank" href="{{filter_page.picture_link}}">[See Pictures]</a></div>
-                    {% else %}
-                    {% endif %}
-                </div>
-                <div class="row">
-                    <div class="col-xs-6 col-md-4"><b>Notes:</b></div>
-                    <div class="col-xs-12 col-md-8">
-                        <div class="notesdiv">{{ filter_page.notes }}</div>
-                    </div>
+        <div id="detailcontainer">    
+            <div class="row">
+                <div class="col-xs-6 col-md-4"><b>Country:</b></div>
+                <div class="col-xs-6 col-md-8">{{ filter_page.country }}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-md-4"><b>Years Visted:</b></div>
+                <div class="col-xs-6 col-md-8">{{ filter_page.years_visted }}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-md-4"><b>Picture Link:</b></div>
+                {% if filter_page.picture_link %}
+                    <div class="col-xs-6 col-md-8"><a target="_blank" href="{{filter_page.picture_link}}">[See Pictures]</a></div>
+                {% else %}
+                {% endif %}
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-md-4"><b>Notes:</b></div>
+                <div class="col-xs-6 col-md-8">
+                    <div class="notesdiv">{{ filter_page.notes }}</div>
                 </div>
             </div>
-            <div id="detailpictureframe"></div>
         </div>
 
-        <div class="col-md-6">
-            <div id="detailmap"></div>
-        </div>
+        <div id="detailpictureframe"></div>
     </div>
 </div>
 {% endblock %}
 
 {% block body_block_2 %}
+    <div id="detailmap"></div>
+    <br>
+{% endblock %}
+
+{% block body_block_3 %}
 <!-- Locations -->
 <div class="panel panel-default panel-custom">
     <div class="panel-heading panel-heading-see">
