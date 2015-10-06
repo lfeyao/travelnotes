@@ -47,6 +47,7 @@ from bucketlist.forms import CategoryForm, PageForm, PlaceForm, UserForm, UserPr
 # Create your views here.
 @login_required
 def index(request):
+    request.encoding = 'utf-8'
 
     all_categories = Category.objects.order_by(Lower('name').desc())
     all_pages = Page.objects.order_by(Lower('name').desc())
@@ -62,6 +63,7 @@ def index(request):
     
 @login_required
 def category(request, category_name_url):
+    request.encoding = 'utf-8'
 
     # Build up the dictionary we will use as out template context dictionary.
     context_dict = {'filter_category_name_url': category_name_url}
@@ -94,7 +96,8 @@ def category(request, category_name_url):
 
 @permission_required('bucketlist.create_category')
 def add_category(request):
-    
+    request.encoding = 'utf-8'
+
     # A HTTP POST?
     if request.method == 'POST':
         form = CategoryForm(request.POST)
@@ -116,7 +119,8 @@ def add_category(request):
 
 @permission_required('bucketlist.change_category')
 def edit_category(request, category_name_url):
-    
+    request.encoding = 'utf-8'
+
     context_dict = {}
     
     # Get the category
@@ -147,6 +151,7 @@ def edit_category(request, category_name_url):
 
 @login_required
 def page_detail(request, category_name_url, page_name_url):
+    request.encoding = 'utf-8'
 
     filter_page = Page.objects.get(name_url=page_name_url)
     
@@ -166,6 +171,8 @@ def page_detail(request, category_name_url, page_name_url):
 
 @login_required
 def add_page(request, category_name_url = None):
+    request.encoding = 'utf-8'
+
     context_dict ={}
     
     if category_name_url is not None:
@@ -196,6 +203,7 @@ def add_page(request, category_name_url = None):
 
 @permission_required('bucketlist.change_page')
 def edit_page(request, category_name_url, page_name_url):
+    request.encoding = 'utf-8'
 
     # Get the page
     try:
@@ -229,7 +237,8 @@ def edit_page(request, category_name_url, page_name_url):
 
 @permission_required('bucketlist.delete_page')
 def delete_page(request, category_name_url, page_name_url):
-    
+    request.encoding = 'utf-8'
+
     context_dict = {}
     # Get the place
     try:
@@ -244,7 +253,8 @@ def delete_page(request, category_name_url, page_name_url):
 
 @login_required
 def add_place(request, category_name_url, page_name_url):
-    
+    request.encoding = 'utf-8'
+
     context_dict = {}
 
     filter_page = Page.objects.get(name_url=page_name_url)
@@ -273,7 +283,8 @@ def add_place(request, category_name_url, page_name_url):
 
 @login_required
 def edit_place(request, category_name_url, page_name_url, place_id):
-    
+    request.encoding = 'utf-8'
+
     context_dict = {}
     # Get the place
     try:
@@ -307,7 +318,8 @@ def edit_place(request, category_name_url, page_name_url, place_id):
 
 @permission_required('bucketlist.delete_place')
 def delete_place(request, category_name_url, page_name_url, place_id):
-    
+    request.encoding = 'utf-8'
+
     context_dict = {}
     # Get the place
     try:
@@ -322,7 +334,8 @@ def delete_place(request, category_name_url, page_name_url, place_id):
 
 @login_required
 def vote_place(request, category_name_url, page_name_url, place_id, direction):
-   
+    request.encoding = 'utf-8'
+
     filter_place = Place.objects.get(id=place_id)
     if direction == "up":
         filter_place.likes = filter_place.likes + 1
@@ -336,7 +349,8 @@ def vote_place(request, category_name_url, page_name_url, place_id, direction):
 
 @login_required
 def vote_page(request, category_name_url, page_name_url, direction):
-   
+    request.encoding = 'utf-8'
+
     filter_page = Page.objects.get(name_url=page_name_url)
     if direction == "up":
         filter_page.likes = filter_page.likes + 1
@@ -352,7 +366,7 @@ def vote_page(request, category_name_url, page_name_url, direction):
 
 @permission_required('bucketlist.create_userprofile')
 def register(request):
-    context = RequestContext(request)
+    request.encoding = 'utf-8'
 
     # A boolean value for telling the template whether the registration was successful.
     # Set to False initially. Code changes value to True when registration succeeds.
@@ -407,9 +421,11 @@ def register(request):
     context_dict = {'user_form': user_form, 'profile_form': profile_form, 'registered': registered}
 
     # Render the template depending on the context.
-    return render_to_response('html/register.html',context_dict,context)
+    return render(request, 'html/register.html',context_dict)
 
 def user_login(request):
+    request.encoding = 'utf-8'
+
     # If the request is a HTTP POST, try to pull out the relevant information.
     if request.method == 'POST':
         # Gather the username and password provided by the user.
@@ -452,6 +468,8 @@ def user_login(request):
 # Use the login_required() decorator to ensure only those logged in can access the view.
 @login_required
 def user_logout(request):
+    request.encoding = 'utf-8'
+    
     # Since we know the user is logged in, we can now just log them out.
     logout(request)
 
