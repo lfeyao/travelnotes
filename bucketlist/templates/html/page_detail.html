@@ -8,7 +8,6 @@
 <!-- Switch -->
 <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-switch.css' %}" />
 <script type="text/javascript" src="{% static 'src/bootstrap-switch.js' %}"></script>
-<script type="text/javascript" src="{% static 'src/bootstrap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'src/main.js' %}"></script>
 <script type="text/javascript" src="{% static 'src/highlight.js' %}"></script>
 
@@ -19,7 +18,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#detailpictureframe").googleslides({ userid: '{{filter_page.user_id}}', albumid: '{{filter_page.album_id}}', authkey: '{{filter_page.auth_key}}',
-         imgmax: 650,
+         imgmax: 800,
          fadespeed: 500,
          time: 8000,
          caption: false,

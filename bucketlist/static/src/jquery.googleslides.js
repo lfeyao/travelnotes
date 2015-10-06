@@ -14,10 +14,10 @@
 			  'albumlink'		 : false,
 			  'time'	 		 : 5000,
 			  'fadespeed'		 : 1000,
-			  'heightmax'		 : 600,
-			  'widthmax'		 : 20000,
+			  'heightmax'		 : 800,
+			  'widthmax'		 : 2000,
 	};
-			
+	
 	var methods = {
 		init: function (options) {
 		    var settings = $.extend({}, defaults, options);
@@ -36,9 +36,8 @@
                   authKeyStr = '&authkey=' + settings.authkey;
                 }
 
-                // &max-results=' + settings.maxresults
 				var albumJsonUrl = '<script src="https://picasaweb.google.com/data/feed/base/user/' + settings.userid + '/albumid/' + settings.albumid 
-					+ '?alt=json&kind=photo' + '&hl=en_US&imgmax=' + settings.imgmax  
+					+ '?alt=json&kind=photo&max-results=' + settings.maxresults + '&hl=en_US&imgmax=' + settings.imgmax  
 					+ authKeyStr
 					+ '&callback=jQuery.fn.googleslides.prepare_' + settings.albumid + '&fields=link,entry(link,media:group(media:content,media:description))">' 
 					+ '</sc' + 'ript>';
@@ -66,26 +65,21 @@
 				caption = item.media$group.media$description.$t;
 				slide = $('<div class="googleslide"></div>');
 				var slideInner = slide;
-				
-				// only add if in dimensions
-				if (height <= settings.heightmax && width <= settings.widthmax){
-					if (settings.albumlink == true) {
-						slide.append($('<a target="_blank" href="' + link + '"></a>'));
-						slideInner = slide.children().first();
-					}
-					
-					slideInner.append($('<img src="' + url + '" alt="' + caption + '"/>'));
-
-					$("img", slideInner).width(width).height(height);
-					
-					if (settings.caption == true && caption != '') {
-						slideInner.append('<div class="captionWrapper"><div class="caption">' + caption + '</div></div>');
-						$(".captionWrapper", slideInner).width(settings.imgmax);
-					}
-					
-					slides.push(slide);
+				if (settings.albumlink == true) {
+					slide.append($('<a target="_blank" href="' + link + '"></a>'));
+					slideInner = slide.children().first();
 				}
+				
+				slideInner.append($('<img src="' + url + '" alt="' + caption + '"/>'));
 
+				$("img", slideInner).width(width).height(height);
+				
+				if (settings.caption == true && caption != '') {
+					slideInner.append('<div class="captionWrapper"><div class="caption">' + caption + '</div></div>');
+					$(".captionWrapper", slideInner).width(settings.imgmax);
+				}
+				
+				slides.push(slide);
 			}
 			
 			if (settings.random == true) {
@@ -96,10 +90,10 @@
 				this.append(slides[i]);
 			}
 			
-			// set height/width of container so that it is just big enough to contain all the images
-			this.height(Math.max.apply(Math, $('.googleslide img', this).map(function(){ return $(this).height(); }).get()) + 0);
+			//set height/width of container so that it is just big enough to contain all the images
+			this.height(Math.max.apply(Math, $('.googleslide img', this).map(function(){ return $(this).height(); }).get()) + 2);
 			
-			this.width(Math.max.apply(Math, $('.googleslide img', this).map(function(){ return $(this).width(); }).get()) + 0);
+			this.width(Math.max.apply(Math, $('.googleslide img', this).map(function(){ return $(this).width(); }).get()) + 2);
 			
 			this.googleslides('start');
 		},
