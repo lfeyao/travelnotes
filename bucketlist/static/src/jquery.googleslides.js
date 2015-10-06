@@ -7,15 +7,15 @@
 			  'userid'			 : '114388032679125757664',
 			  'albumid'			 : '6190318895951574545',
 			  'authkey' 		 : 'Gv1sRgCPeE8Z2kn5iC4AE',
-			  'imgmax'           : 460,
+			  'imgmax'           : 1000,
 			  'maxresults'		 : 1000,
 			  'random'			 : true,
 			  'caption'			 : true,
 			  'albumlink'		 : false,
 			  'time'	 		 : 5000,
 			  'fadespeed'		 : 1000,
-			  'heightmax'		 : 500,
-			  'widthmax'		 : 800,
+			  'heightmax'		 : 1000,
+			  'widthmax'		 : 1000,
 	};
 			
 	var methods = {
@@ -76,7 +76,7 @@
 					
 					slideInner.append($('<img src="' + url + '" alt="' + caption + '"/>'));
 
-					$("img", slideInner).width(width).height(height);
+					// $("img", slideInner).width(width).height(height);
 					
 					if (settings.caption == true && caption != '') {
 						slideInner.append('<div class="captionWrapper"><div class="caption">' + caption + '</div></div>');
@@ -97,9 +97,9 @@
 			}
 			
 			//set height/width of container so that it is just big enough to contain all the images
-			this.height(Math.max.apply(Math, $('.googleslide img', this).map(function(){ return $(this).height(); }).get()) + 0);
+			// this.height(Math.max.apply(Math, $('.googleslide img', this).map(function(){ return $(this).height(); }).get()) + 0);
 			
-			this.width(Math.max.apply(Math, $('.googleslide img', this).map(function(){ return $(this).width(); }).get()) + 0);
+			// this.width(Math.max.apply(Math, $('.googleslide img', this).map(function(){ return $(this).width(); }).get()) + 0);
 			
 			this.googleslides('start');
 		},

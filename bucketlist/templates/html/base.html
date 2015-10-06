@@ -14,7 +14,6 @@
 
         <!-- jQuery -->
         <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-        {% block custom_scripts %}{% endblock %}
         {% block custom_style %}{% endblock %}
     </head>
     
@@ -52,6 +51,17 @@
             <div>
                 {% block body_block_2 %}{% endblock %}
             </div>
+
+            <div>
+                {% block body_block_3 %}{% endblock %}
+                <br>
+            </div>
+
+            <div>
+                {% block body_block_4 %}{% endblock %}
+            </div>
         </div>
     </body>
+
+    {% block custom_scripts %}{% endblock %}
 </html>

@@ -59,7 +59,7 @@ def index(request):
     # Render the response and return to the client.
     return render(request, 'html/index.html', context_dict)
 
-
+    
 @login_required
 def category(request, category_name_url):
 

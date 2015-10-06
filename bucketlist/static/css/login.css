@@ -11,7 +11,8 @@ html,body {
     height: 100%;
     font-family: 'Josefin Slab';
 
-    background: url("../images/calvin.jpg") center center;
+    background: url("../images/calvin.jpg");
+    background-position: left bottom;
     background-size: cover;
     background-repeat: no-repeat;
     color: white;
@@ -20,4 +21,23 @@ html,body {
 .container-fluid {
   max-width: 400px;
   padding: 20px;
+}
+
+#custom-label{
+    font-size: 60px;
+    font-family: 'Josefin Slab';
+    font-weight: 600;
+}
+
+#custom-input{
+    font-size: 30px;
+    font-family: 'Josefin Slab';
+    font-weight: 600;
+}
+
+#custom-button{
+    margin-top: 10px;
+    font-size: 30px;
+    font-family: 'Josefin Slab';
+    font-weight: 600;
 }

@@ -28,6 +28,17 @@
         font-family: 'Josefin Slab';
         font-weight: 600;
     }
+/*
+    .carousel{
+        background: #2f4357;
+        margin-top: 20px;
+    }
+    .carousel .item img{
+        margin: 0 auto;
+    }
+    .bs-example{
+        margin: 20px;
+    }*/
 
 </style>
 {% endblock %}
@@ -39,7 +50,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#pictureframe").googleslides({ userid: '114388032679125757664', albumid: '6190318895951574545', authkey: 'Gv1sRgCPeE8Z2kn5iC4AE',
-         imgmax: 600,
+         imgmax: 700,
          fadespeed: 500,
          time: 8000,
          caption: false,
@@ -77,7 +88,7 @@
 
         var mapOptions = {
             center: latlng,
-            zoom: 1,
+            zoom: 2,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }
 
@@ -94,7 +105,7 @@
         geocoder.geocode({'address': address}, function(results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
                 map.setCenter(results[0].geometry.location);
-                map.setZoom(3);
+                map.setZoom(2);
             }
         });
     }
@@ -118,15 +129,6 @@
         });
     }
 
-    function sleep(milliseconds) {
-        var start = new Date().getTime();
-        for (var i = 0; i < 1e7; i++) {
-            if ((new Date().getTime() - start) > milliseconds){
-                break;
-            }
-        }
-    }
-
     function setAllMarkers(){
         {% for page in filter_pages %}
             setMarker('{{page.name}}, {{page.country}}');
@@ -141,19 +143,40 @@
     google.maps.event.addDomListener(window, 'load', setAllMarkers);
     //google.maps.event.addDomListener(window, 'load', test);
 </script>
+
+<!-- <script type="text/javascript" src="{% static 'src/swipe.js' %}"></script>
+<script>
+    window.mySwipe = new Swipe(document.getElementById('slider'), {
+        startSlide: 1,
+        speed: 400,
+        auto: 3000,
+        continuous: true,
+        disableScroll: true,
+        stopPropagation: false,
+        callback: function(index, elem) {},
+        transitionEnd: function(index, elem) {}
+    });
+</script> -->
+
+
 {% endblock %}
 
 {% block body_block_1 %}
-<div class="row">
-    <div class="col-md-6">
-        <div id="pictureframe"></div>
-    </div>
-    <div class="col-md-6">
-        <div id="globalmap"></div>
-    </div>
-</div>
 
-<br>
+<div id="pictureframe"></div>
+<!-- <div id='slider' class='swipe'>
+  <div class='swipe-wrap'>
+    <div>
+        <IMG SRC="https://lh3.googleusercontent.com/-93FbJZFtAM0/VgqrfXGZCtI/AAAAAAAAXRI/KdMW8-k0iUk/s2048-Ic42/IMG_0677.JPG&imgmax=400" />
+    </div>
+    <div>
+        2
+    </div>
+    <div>
+       3
+    </div>
+  </div>
+</div> -->        
 {% endblock %}
 
 {% block body_block_2 %}
@@ -161,7 +184,7 @@
     <div class="panel-heading" id="panel_title">
         Travel Destinations
     </div>
-
+    
     <div class="panel-body" id="panel_body">
         <table id="myTable" class="table table-striped">
             <thead>
@@ -204,8 +227,13 @@
         </table>
     </div>
 </div>
+{% endblock %}
 
+{% block body_block_3 %}
+<div id="globalmap"></div>
+{% endblock %}
 
+{% block body_block_4 %}
 <div class="panel panel-default panel-custom">
     <div class="panel-heading panel-heading-upcoming">
         <a href="add" class="btn btn-default">
@@ -218,24 +246,21 @@
     <div class="list-group list-group-custom">
         {% for page in upcoming_trips %}
             <li class="list-group-item" id="list-item-custom">
-                    <span class="label label-primary" id = "custom-label">Votes: {{page.likes}}</span>
-                    
-                    <a href="/category/{{page.category_url}}/{{page.name_url}}/upvote" class="btn btn-success btn-sm">
-                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                    </a>
+                <span class="label label-primary" id = "custom-label">Votes: {{page.likes}}</span>
+                
+                <a href="/category/{{page.category_url}}/{{page.name_url}}/upvote" class="btn btn-success btn-sm">
+                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                </a>
 
-                    <a href="/category/{{page.category_url}}/{{page.name_url}}/downvote" class="btn btn-danger btn-sm">
-                        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
-                    </a>
+                <a href="/category/{{page.category_url}}/{{page.name_url}}/downvote" class="btn btn-danger btn-sm">
+                    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                </a>
 
-                    <a href="/category/{{ page.category_url }}/{{ page.name_url }}" >
-                        <b>{{ page.name }} / {{page.country}} </b> - {{ page.notes }} 
-                    </a>
-
-                    
+                <a href="/category/{{ page.category_url }}/{{ page.name_url }}" >
+                    <b>{{ page.name }} / {{page.country}} </b> - {{ page.notes }} 
+                </a>                    
             </li>
         {% endfor %}
     </div>
 </div>
-
 {% endblock %}

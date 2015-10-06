@@ -50,10 +50,11 @@ p.lowercase {
 }
 
 #pictureframe{
-    height: 400px;
     background-color: #000000;
     border: 5px solid #000000;
     border-radius: 0px;
+    display: block;
+    margin: auto;
 }
 
 #detailpictureframe{
@@ -66,7 +67,7 @@ p.lowercase {
     height: 409px;
     background-color: #CCC;
     border: 5px solid #8B5E85;
-    border-radius: 0px;
+    border-radius: 10px;
 }
 
 
@@ -103,4 +104,19 @@ p.lowercase {
 
 #map{
     height: 600px;
+}
+
+.swipe {
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+}
+.swipe-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.swipe-wrap > div {
+  float:left;
+  width:100%;
+  position: relative;
 }
