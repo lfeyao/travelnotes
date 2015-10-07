@@ -7,3 +7,4 @@ requests==2.6.2
 whitenoise==2.0.4
 dj-database-url==0.3.0
 psycopg2==2.6.1
+pillow==2.8.2
