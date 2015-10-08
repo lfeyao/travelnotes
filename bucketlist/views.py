@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 
 from bucketlist.models import Category, Page, Place
-from bucketlist.forms import CategoryForm, PageForm, PlaceForm, UserForm, UserProfileForm
+from bucketlist.forms import CategoryForm, PageForm, PlaceForm, UserForm
 
 # def encode_url(str):
 #     new_url  = str.replace(' ', '_')
@@ -364,7 +364,7 @@ def vote_page(request, category_name_url, page_name_url, direction):
 
 # User Registration View
 
-@permission_required('bucketlist.create_userprofile')
+@permission_required('bucketlist.create_user')
 def register(request):
     request.encoding = 'utf-8'
 
@@ -374,13 +374,9 @@ def register(request):
 
     # If it's a HTTP POST, we're interested in processing form data.
     if request.method == 'POST':
-        # Attempt to grab information from the raw form information.
-        # Note that we make use of both UserForm and UserProfileForm.
         user_form = UserForm(data=request.POST)
-        profile_form = UserProfileForm(data=request.POST)
 
-        # If the two forms are valid...
-        if user_form.is_valid() and profile_form.is_valid():
+        if user_form.is_valid():
             # Save the user's form data to the database.
             user = user_form.save()
 
@@ -389,36 +385,16 @@ def register(request):
             user.set_password(user.password)
             user.save()
 
-            # Now sort out the UserProfile instance.
-            # Since we need to set the user attribute ourselves, we set commit=False.
-            # This delays saving the model until we're ready to avoid integrity problems.
-            profile = profile_form.save(commit=False)
-            profile.user = user
-
-            # Did the user provide a profile picture?
-            # If so, we need to get it from the input form and put it in the UserProfile model.
-            if 'picture' in request.FILES:
-                profile.picture = request.FILES['picture']
-
-            # Now we save the UserProfile model instance.
-            profile.save()
-
             # Update our variable to tell the template registration was successful.
             registered = True
 
-        # Invalid form or forms - mistakes or something else?
-        # Print problems to the terminal.
-        # They'll also be shown to the user.
         else:
-            print(user_form.errors, profile_form.errors)
+            print(user_form.errors)
 
-    # Not a HTTP POST, so we render our form using two ModelForm instances.
-    # These forms will be blank, ready for user input.
     else:
         user_form = UserForm()
-        profile_form = UserProfileForm()
 
-    context_dict = {'user_form': user_form, 'profile_form': profile_form, 'registered': registered}
+    context_dict = {'user_form': user_form, 'registered': registered}
 
     # Render the template depending on the context.
     return render(request, 'html/register.html',context_dict)
@@ -469,7 +445,7 @@ def user_login(request):
 @login_required
 def user_logout(request):
     request.encoding = 'utf-8'
-    
+
     # Since we know the user is logged in, we can now just log them out.
     logout(request)
 
