@@ -16,12 +16,12 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
 
     # The additional attributes we wish to include.
-    website = models.URLField(blank=True)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
+    # website = models.URLField(blank=True)
+    # picture = models.ImageField(upload_to='profile_images', blank=True)
 
-    # Override the __unicode__() method to return out something meaningful!
-    def __str__(self):
-        return self.user.username
+    # # Override the __unicode__() method to return out something meaningful!
+    # def __str__(self):
+    #     return self.user.username
 
 class Category(models.Model):
     name = models.CharField(max_length=128, unique=True)
@@ -30,8 +30,8 @@ class Category(models.Model):
     def create_category(self):
         self.name_url = encode_url(self.name)
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
 
     class Meta:
         permissions = ( 
@@ -61,9 +61,6 @@ class Page(models.Model):
     def create_page(self):
         self.category_url = self.category.name_url
         self.name_url = encode_url(self.name)
-        self.date_added = timezone.now()
-        self.was_done = False
-        self.likes = 0
         self.save()
 
     def finish_bucket_item(self):
@@ -71,11 +68,8 @@ class Page(models.Model):
         self.was_done = True
         self.save()
 
-    #def get_absolute_url(self):
-    #    return reverse('bucketlist.views.detail', args=[str(self.name)])
-
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
 
 class Place(models.Model):
     categorys = (
@@ -98,5 +92,5 @@ class Place(models.Model):
         self.name_url = encode_url(self.name)
         self.save()
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name

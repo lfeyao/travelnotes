@@ -36,7 +36,7 @@ class PageForm(forms.ModelForm):
         # we can either exclude the category field from the form,
         exclude = ('date_added',)
         #or specify the fields to include (i.e. not include the category field)
-        fields = ('category', 'name', 'country', 'notes')
+        fields = ('category', 'name', 'country', 'was_done', 'years_visted', 'picture_link', 'user_id', 'album_id', 'auth_key', 'likes', 'notes')
 
 class PlaceForm(forms.ModelForm):
 
