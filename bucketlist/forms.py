@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from bucketlist.models import Page, Category, Place, UserProfile
+from bucketlist.models import Page, Category, Place
 from django.utils.translation import ugettext_lazy as _
 
 class CategoryForm(forms.ModelForm):

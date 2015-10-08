@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Page, Place, UserProfile
+from .models import Category, Page, Place
 
 
 class PageAdmin(admin.ModelAdmin):
@@ -19,4 +19,3 @@ class PlaceAdmin(admin.ModelAdmin):
 admin.site.register(Category)
 admin.site.register(Page, PageAdmin)
 admin.site.register(Place, PlaceAdmin)
-admin.site.register(UserProfile)
