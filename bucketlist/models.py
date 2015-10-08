@@ -18,8 +18,8 @@ class Category(models.Model):
     def create_category(self):
         self.name_url = encode_url(self.name)
 
-    # def __str__(self):
-    #     return self.name
+    def __str__(self):
+        return self.name
 
     class Meta:
         permissions = ( 
@@ -56,8 +56,8 @@ class Page(models.Model):
         self.was_done = True
         self.save()
 
-    # def __str__(self):
-    #     return self.name
+    def __str__(self):
+        return self.name
 
 class Place(models.Model):
     categorys = (
@@ -80,5 +80,5 @@ class Place(models.Model):
         self.name_url = encode_url(self.name)
         self.save()
 
-    # def __str__(self):
-    #     return self.name
+    def __str__(self):
+        return self.name
