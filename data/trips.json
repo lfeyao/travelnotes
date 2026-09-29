@@ -1,5 +1,45 @@
 [
   {
+    "name": "Istanbul",
+    "country": "Türkiye",
+    "region": "Europe",
+    "years": [
+      "2025"
+    ],
+    "notes": "Conrad Istanbul Bosphorus",
+    "places": []
+  },
+  {
+    "name": "Bali",
+    "country": "Indonesia",
+    "region": "Asia",
+    "years": [
+      "2024"
+    ],
+    "notes": "",
+    "places": []
+  },
+  {
+    "name": "Singapore",
+    "country": "Singapore",
+    "region": "Asia",
+    "years": [
+      "2024"
+    ],
+    "notes": "Stopover en route to Bali",
+    "places": []
+  },
+  {
+    "name": "Shanghai",
+    "country": "China",
+    "region": "Asia",
+    "years": [
+      "2020"
+    ],
+    "notes": "",
+    "places": []
+  },
+  {
     "name": "Amsterdam",
     "pin": "Amsterdam",
     "country": "Netherlands",
@@ -139,7 +179,8 @@
     "region": "Europe",
     "years": [
       "2005",
-      "2015"
+      "2015",
+      "2026"
     ],
     "notes": "",
     "places": [],
@@ -228,7 +269,8 @@
     "years": [
       "2008",
       "2014",
-      "2015"
+      "2015",
+      "2020"
     ],
     "notes": "",
     "album": "https://photos.google.com/album/AF1QipNIK1J5L0J8DCuh5BEGROf01JM6JYBU65hFXso1",
@@ -313,7 +355,8 @@
     "country": "Japan",
     "region": "Asia",
     "years": [
-      "2014"
+      "2014",
+      "2022"
     ],
     "notes": "",
     "places": [
@@ -568,7 +611,8 @@
     "country": "United Kingdom",
     "region": "Europe",
     "years": [
-      "2010"
+      "2010",
+      "2026"
     ],
     "notes": "",
     "album": "",
