@@ -385,7 +385,7 @@ h2 {
 
 .trip-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
 .trip-name { font-family: var(--font-display); font-weight: 700; font-size: 16.5px; margin: 0; }
-.trip-country { font-size: 12px; color: var(--accent); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.trip-country { font-size: 12px; color: var(--accent); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; margin: 3px 0 0; }
 
 .year-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .year-tag {

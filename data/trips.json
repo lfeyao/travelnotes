@@ -92,18 +92,61 @@
     ]
   },
   {
-    "name": "Italy",
-    "pin": "Rome, Italy",
+    "name": "Rome",
     "country": "Italy",
     "region": "Europe",
     "years": [
       "2005",
       "2015"
     ],
-    "notes": "Milan\nLake Como\nTorino\nParma",
+    "notes": "",
+    "places": [],
     "album": "https://photos.google.com/album/AF1QipPMG1_VRWs96FQGBdmOaW9_ejBRmGB3A1sji8Ov",
     "lat": 41.90325,
-    "lng": 12.49563,
+    "lng": 12.49563
+  },
+  {
+    "name": "Milan",
+    "country": "Italy",
+    "region": "Europe",
+    "years": [
+      "2005",
+      "2015"
+    ],
+    "notes": "",
+    "places": []
+  },
+  {
+    "name": "Lake Como",
+    "country": "Italy",
+    "region": "Europe",
+    "years": [
+      "2005",
+      "2015"
+    ],
+    "notes": "",
+    "places": []
+  },
+  {
+    "name": "Torino",
+    "country": "Italy",
+    "region": "Europe",
+    "years": [
+      "2005",
+      "2015"
+    ],
+    "notes": "",
+    "places": []
+  },
+  {
+    "name": "Parma",
+    "country": "Italy",
+    "region": "Europe",
+    "years": [
+      "2005",
+      "2015"
+    ],
+    "notes": "",
     "places": []
   },
   {

@@ -1,0 +1,430 @@
+{
+  "generated": "2026-09-29",
+  "targets": {
+    "Africa": null,
+    "Asia": "Japan",
+    "Europe": null,
+    "North America": null,
+    "South America": null,
+    "Oceania": null
+  },
+  "targetNotes": {
+    "Asia": "Family trip planned Apr 2027"
+  },
+  "countries": [
+    {
+      "country": "China",
+      "iso": "156",
+      "continent": "Asia",
+      "visits": 4,
+      "destinations": [
+        {
+          "name": "北京",
+          "years": [
+            "2008",
+            "2014",
+            "2015"
+          ]
+        },
+        {
+          "name": "哈尔滨",
+          "years": [
+            "2005",
+            "2015"
+          ]
+        },
+        {
+          "name": "九寨沟",
+          "years": [
+            "2014"
+          ]
+        },
+        {
+          "name": "广州",
+          "years": [
+            "2014"
+          ]
+        }
+      ]
+    },
+    {
+      "country": "Spain",
+      "iso": "724",
+      "continent": "Europe",
+      "visits": 3,
+      "destinations": [
+        {
+          "name": "Cordoba",
+          "years": [
+            "2015"
+          ]
+        },
+        {
+          "name": "Madrid",
+          "years": [
+            "2010",
+            "2015"
+          ]
+        },
+        {
+          "name": "Barcelona",
+          "years": [
+            "2014"
+          ]
+        },
+        {
+          "name": "Majorca",
+          "years": [
+            "2014"
+          ]
+        }
+      ]
+    },
+    {
+      "country": "Aruba",
+      "iso": "533",
+      "continent": "South America",
+      "visits": 2,
+      "destinations": [
+        {
+          "name": "Aruba",
+          "years": [
+            "2007",
+            "2009"
+          ]
+        }
+      ]
+    },
+    {
+      "country": "Italy",
+      "iso": "380",
+      "continent": "Europe",
+      "visits": 2,
+      "destinations": [
+        {
+          "name": "Rome",
+          "years": [
+            "2005",
+            "2015"
+          ]
+        },
+        {
+          "name": "Milan",
+          "years": [
+            "2005",
+            "2015"
+          ]
+        },
+        {
+          "name": "Lake Como",
+          "years": [
+            "2005",
+            "2015"
+          ]
+        },
+        {
+          "name": "Torino",
+          "years": [
+            "2005",
+            "2015"
+          ]
+        },
+        {
+          "name": "Parma",
+          "years": [
+            "2005",
+            "2015"
+          ]
+        }
+      ]
+    },
+    {
+      "country": "United States",
+      "iso": "840",
+      "continent": "North America",
+      "visits": 2,
+      "destinations": [
+        {
+          "name": "Zion National Park",
+          "years": [
+            "2015"
+          ]
+        },
+        {
+          "name": "Grand Canyon",
+          "years": [
+            "2011"
+          ]
+        },
+        {
+          "name": "Hawaii",
+          "years": [
+            "2011"
+          ]
+        }
+      ]
+    },
+    {
+      "country": "Argentina",
+      "iso": "032",
+      "continent": "South America",
+      "visits": 1,
+      "destinations": [
+        {
+          "name": "Patagonia",
+          "years": [
+            "2013"
+          ]
+        }
+      ]
+    },
+    {
+      "country": "Bermuda",
+      "iso": "060",
+      "continent": "North America",
+      "visits": 1,
+      "destinations": [
+        {
+          "name": "Bermuda",
+          "years": [
+            "2004"
+          ]
+        }
+      ]
+    },
+    {
+      "country": "Croatia",
+      "iso": "191",
+      "continent": "Europe",
+      "visits": 1,
+      "destinations": [
+        {
+          "name": "Croatia Islands",
+          "years": [
+            "2015"
+          ]
+        }
+      ]
+    },
+    {
+      "country": "Czech Republic",
+      "iso": "203",
+      "continent": "Europe",
+      "visits": 1,
+      "destinations": [
+        {
+          "name": "Prague",
+          "years": [
+            "2009"
+          ]
+        }
+      ]
+    },
+    {
+      "country": "Ecuador",
+      "iso": "218",
+      "continent": "South America",
+      "visits": 1,
+      "destinations": [
+        {
+          "name": "Galapagos",
+          "years": [
+            "2012"
+          ]
+        }
+      ]
+    },
+    {
+      "country": "France",
+      "iso": "250",
+      "continent": "Europe",
+      "visits": 1,
+      "destinations": [
+        {
+          "name": "Paris",
+          "years": [
+            "2013"
+          ]
+        },
+        {
+          "name": "South of France",
+          "years": [
+            "2013"
+          ]
+        }
+      ]
+    },
+    {
+      "country": "Germany",
+      "iso": "276",
+      "continent": "Europe",
+      "visits": 1,
+      "destinations": [
+        {
+          "name": "Munich",
+          "years": [
+            "2010"
+          ]
+        }
+      ]
+    },
+    {
+      "country": "Iceland",
+      "iso": "352",
+      "continent": "Europe",
+      "visits": 1,
+      "destinations": [
+        {
+          "name": "Reykjavik",
+          "years": [
+            "2009"
+          ]
+        }
+      ]
+    },
+    {
+      "country": "Japan",
+      "iso": "392",
+      "continent": "Asia",
+      "visits": 1,
+      "destinations": [
+        {
+          "name": "Japan",
+          "years": [
+            "2014"
+          ]
+        }
+      ]
+    },
+    {
+      "country": "Mexico",
+      "iso": "484",
+      "continent": "North America",
+      "visits": 1,
+      "destinations": [
+        {
+          "name": "Cancun",
+          "years": [
+            "2003"
+          ]
+        }
+      ]
+    },
+    {
+      "country": "Netherlands",
+      "iso": "528",
+      "continent": "Europe",
+      "visits": 1,
+      "destinations": [
+        {
+          "name": "Amsterdam",
+          "years": [
+            "2015"
+          ]
+        }
+      ]
+    },
+    {
+      "country": "Peru",
+      "iso": "604",
+      "continent": "South America",
+      "visits": 1,
+      "destinations": [
+        {
+          "name": "Machu Picchu",
+          "years": [
+            "2012"
+          ]
+        }
+      ]
+    },
+    {
+      "country": "Puerto Rico",
+      "iso": "630",
+      "continent": "North America",
+      "visits": 1,
+      "destinations": [
+        {
+          "name": "Vieques",
+          "years": [
+            "2012"
+          ]
+        }
+      ]
+    },
+    {
+      "country": "South Africa",
+      "iso": "710",
+      "continent": "Africa",
+      "visits": 1,
+      "destinations": [
+        {
+          "name": "Cape Town",
+          "years": [
+            "2010"
+          ]
+        },
+        {
+          "name": "Thornybush Game Reserve",
+          "years": [
+            "2010"
+          ]
+        }
+      ]
+    },
+    {
+      "country": "United Kingdom",
+      "iso": "826",
+      "continent": "Europe",
+      "visits": 1,
+      "destinations": [
+        {
+          "name": "London",
+          "years": [
+            "2010"
+          ]
+        }
+      ]
+    },
+    {
+      "country": "Zimbabwe",
+      "iso": "716",
+      "continent": "Africa",
+      "visits": 1,
+      "destinations": [
+        {
+          "name": "Victoria Falls",
+          "years": [
+            "2010"
+          ]
+        }
+      ]
+    },
+    {
+      "country": "Brazil",
+      "iso": "076",
+      "continent": "South America",
+      "visits": 0,
+      "destinations": [
+        {
+          "name": "Florianópolis",
+          "years": []
+        }
+      ],
+      "yearsUnknown": true
+    },
+    {
+      "country": "Vietnam",
+      "iso": "704",
+      "continent": "Asia",
+      "visits": 0,
+      "destinations": [
+        {
+          "name": "Ho Chi Minh",
+          "years": []
+        }
+      ],
+      "yearsUnknown": true
+    }
+  ]
+}

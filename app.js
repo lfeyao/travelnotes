@@ -223,8 +223,8 @@
         }).join("") + "</ul>" : "";
         var album = t.album ? '<div class="trip-foot"><a class="album-link" href="' + esc(t.album) + '" target="_blank" rel="noopener">📷 Photo album</a></div>' : "";
         return '<article class="trip-card" style="animation-delay:' + Math.min(i * 30, 300) + 'ms">' +
-          '<div class="trip-top"><div><p class="trip-country">' + esc(t.country) + '</p>' +
-          '<h3 class="trip-name">' + esc(t.name) + "</h3></div></div>" +
+          '<div class="trip-top"><div><h3 class="trip-name">' + esc(t.name) + "</h3>" +
+          '<p class="trip-country">' + esc(t.country) + "</p></div></div>" +
           (years ? '<div class="year-tags">' + years + "</div>" : "") +
           notes + places + album + "</article>";
       }).join("");
