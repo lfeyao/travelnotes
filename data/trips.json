@@ -706,7 +706,9 @@
     "pin": "Ho Chi Minh",
     "country": "Vietnam",
     "region": "Asia",
-    "years": [],
+    "years": [
+      "2015"
+    ],
     "notes": "11/5/15 - 11/12/15",
     "album": "",
     "lat": 10.77641,

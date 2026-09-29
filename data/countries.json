@@ -417,6 +417,20 @@
       ]
     },
     {
+      "country": "Vietnam",
+      "iso": "704",
+      "continent": "Asia",
+      "visits": 1,
+      "destinations": [
+        {
+          "name": "Ho Chi Minh",
+          "years": [
+            "2015"
+          ]
+        }
+      ]
+    },
+    {
       "country": "Zimbabwe",
       "iso": "716",
       "continent": "Africa",
@@ -438,19 +452,6 @@
       "destinations": [
         {
           "name": "Florianópolis",
-          "years": []
-        }
-      ],
-      "yearsUnknown": true
-    },
-    {
-      "country": "Vietnam",
-      "iso": "704",
-      "continent": "Asia",
-      "visits": 0,
-      "destinations": [
-        {
-          "name": "Ho Chi Minh",
           "years": []
         }
       ],
