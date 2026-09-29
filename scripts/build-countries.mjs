@@ -16,6 +16,7 @@ const ISO = {
   'Zimbabwe': '716', 'Aruba': '533', 'Czech Republic': '203', 'Iceland': '352',
   'Bermuda': '060', 'Mexico': '484', 'Brazil': '076', 'Vietnam': '704',
   'Indonesia': '360', 'Singapore': '702', 'Türkiye': '792',
+  'Greece': '300', 'Montenegro': '499',
 };
 
 // "USA" displays better as "United States".

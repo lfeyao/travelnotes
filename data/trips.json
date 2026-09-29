@@ -1,5 +1,35 @@
 [
   {
+    "name": "Corfu",
+    "country": "Greece",
+    "region": "Europe",
+    "years": [
+      "2026"
+    ],
+    "notes": "Enchanted Princess cruise, Jun 4",
+    "places": []
+  },
+  {
+    "name": "Kotor",
+    "country": "Montenegro",
+    "region": "Europe",
+    "years": [
+      "2026"
+    ],
+    "notes": "Enchanted Princess cruise, Jun 6",
+    "places": []
+  },
+  {
+    "name": "Naples",
+    "country": "Italy",
+    "region": "Europe",
+    "years": [
+      "2026"
+    ],
+    "notes": "Enchanted Princess cruise, Jun 8",
+    "places": []
+  },
+  {
     "name": "Istanbul",
     "country": "Türkiye",
     "region": "Europe",
@@ -85,7 +115,8 @@
     "country": "Croatia",
     "region": "Europe",
     "years": [
-      "2015"
+      "2015",
+      "2026"
     ],
     "notes": "",
     "places": [
