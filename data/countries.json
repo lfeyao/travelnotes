@@ -443,19 +443,6 @@
           ]
         }
       ]
-    },
-    {
-      "country": "Brazil",
-      "iso": "076",
-      "continent": "South America",
-      "visits": 0,
-      "destinations": [
-        {
-          "name": "Florianópolis",
-          "years": []
-        }
-      ],
-      "yearsUnknown": true
     }
   ]
 }
