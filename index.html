@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Travel Notes</title>
+<meta name="description" content="Places we've traveled — an interactive travel journal.">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <div>
+      <h1>Travel Notes</h1>
+      <p class="tagline">Everywhere we've been, on one map.</p>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="stats" id="stats"></div>
+</section>
+
+<section class="map-section">
+  <div id="map" aria-label="World map of visited destinations"></div>
+  <p class="map-hint">Tap a pin to jump to that trip.</p>
+</section>
+
+<section class="controls">
+  <div class="chips" id="regionChips" role="tablist" aria-label="Filter by region"></div>
+  <input id="search" type="search" placeholder="Search destinations, countries, places…" aria-label="Search trips">
+</section>
+
+<main>
+  <div class="cards" id="cards"></div>
+  <p class="empty hidden" id="empty">No trips match your search.</p>
+</main>
+
+<footer>
+  <p>Travel Notes · a personal travel journal</p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
