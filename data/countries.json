@@ -199,7 +199,31 @@
       "visits": 1,
       "destinations": [
         {
-          "name": "Croatia Islands",
+          "name": "Dubrovnik",
+          "years": [
+            "2015"
+          ]
+        },
+        {
+          "name": "Korcula",
+          "years": [
+            "2015"
+          ]
+        },
+        {
+          "name": "Hvar",
+          "years": [
+            "2015"
+          ]
+        },
+        {
+          "name": "Split",
+          "years": [
+            "2015"
+          ]
+        },
+        {
+          "name": "Zagreb",
           "years": [
             "2015"
           ]
@@ -289,7 +313,13 @@
       "visits": 1,
       "destinations": [
         {
-          "name": "Japan",
+          "name": "Tokyo",
+          "years": [
+            "2014"
+          ]
+        },
+        {
+          "name": "Kyoto",
           "years": [
             "2014"
           ]

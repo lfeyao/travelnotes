@@ -41,30 +41,14 @@
     "places": []
   },
   {
-    "name": "Croatia Islands",
-    "pin": "Dubrovnik, Croatia",
+    "name": "Dubrovnik",
     "country": "Croatia",
     "region": "Europe",
     "years": [
       "2015"
     ],
-    "notes": "Day 1: Dubrovnik\nDay 2: Korcula\nDay 3: Hvar\nDay 4: Hvar\nDay 5: Split/Zagreb",
-    "album": "https://photos.google.com/album/AF1QipNH04g3v8Tjta6lpmQtI-qjz3ZS3k3rQHkucjHq",
-    "lat": 42.64277,
-    "lng": 18.11065,
+    "notes": "",
     "places": [
-      {
-        "name": "Amfora",
-        "type": "Sleep",
-        "address": "",
-        "notes": "Hvar - Quieter, 5 Min walk to Pier."
-      },
-      {
-        "name": "Bol Island",
-        "type": "See",
-        "address": "",
-        "notes": ""
-      },
       {
         "name": "Dubrovnik Walls",
         "type": "See",
@@ -82,7 +66,21 @@
         "type": "Eat",
         "address": "",
         "notes": "Fresh Fish with Potatos"
-      },
+      }
+    ],
+    "album": "https://photos.google.com/album/AF1QipNH04g3v8Tjta6lpmQtI-qjz3ZS3k3rQHkucjHq",
+    "lat": 42.64277,
+    "lng": 18.11065
+  },
+  {
+    "name": "Korcula",
+    "country": "Croatia",
+    "region": "Europe",
+    "years": [
+      "2015"
+    ],
+    "notes": "",
+    "places": [
       {
         "name": "Lesic Dimitri",
         "type": "Eat",
@@ -90,6 +88,50 @@
         "notes": "Korcula"
       }
     ]
+  },
+  {
+    "name": "Hvar",
+    "country": "Croatia",
+    "region": "Europe",
+    "years": [
+      "2015"
+    ],
+    "notes": "",
+    "places": [
+      {
+        "name": "Amfora",
+        "type": "Sleep",
+        "address": "",
+        "notes": "Hvar - Quieter, 5 Min walk to Pier."
+      }
+    ]
+  },
+  {
+    "name": "Split",
+    "country": "Croatia",
+    "region": "Europe",
+    "years": [
+      "2015"
+    ],
+    "notes": "",
+    "places": [
+      {
+        "name": "Bol Island",
+        "type": "See",
+        "address": "",
+        "notes": ""
+      }
+    ]
+  },
+  {
+    "name": "Zagreb",
+    "country": "Croatia",
+    "region": "Europe",
+    "years": [
+      "2015"
+    ],
+    "notes": "",
+    "places": []
   },
   {
     "name": "Rome",
@@ -267,17 +309,13 @@
     ]
   },
   {
-    "name": "Japan",
-    "pin": "Tokyo, Japan",
+    "name": "Tokyo",
     "country": "Japan",
     "region": "Asia",
     "years": [
       "2014"
     ],
-    "notes": "Tokyo\nKyoto",
-    "album": "https://photos.google.com/album/AF1QipMyIFuQDBlF9yl0bDFkBzZovECte9xqAdFG1HQM",
-    "lat": 35.6762,
-    "lng": 139.6503,
+    "notes": "",
     "places": [
       {
         "name": "Kozantei Ubuya",
@@ -285,7 +323,20 @@
         "address": "",
         "notes": "Kawaguchiko, Amazing View of Mt Fuji"
       }
-    ]
+    ],
+    "album": "https://photos.google.com/album/AF1QipMyIFuQDBlF9yl0bDFkBzZovECte9xqAdFG1HQM",
+    "lat": 35.6762,
+    "lng": 139.6503
+  },
+  {
+    "name": "Kyoto",
+    "country": "Japan",
+    "region": "Asia",
+    "years": [
+      "2014"
+    ],
+    "notes": "",
+    "places": []
   },
   {
     "name": "Majorca",
