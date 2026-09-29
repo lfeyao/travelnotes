@@ -1,205 +1,251 @@
-/* Travel Notes — renders the trip journal from data/trips.json */
+/* Travel Notes · The Yu Family Atlas — SVG world map + stats from data/*.json */
 (function () {
   "use strict";
 
-  var REGION_COLORS = {
-    "Europe": "#5b8def",
-    "Asia": "#f2707a",
-    "North America": "#43c783",
-    "South America": "#e8a33d",
-    "Africa": "#9a6ee8"
-  };
-  var REGION_ORDER = ["Europe", "Asia", "North America", "South America", "Africa"];
+  var CONTINENTS = [
+    { name: "Africa", total: 54 },
+    { name: "Asia", total: 48 },
+    { name: "Europe", total: 44 },
+    { name: "North America", total: 23 },
+    { name: "South America", total: 12 },
+    { name: "Oceania", total: 14 }
+  ];
 
-  var state = { trips: [], region: "All", query: "" };
-  var markers = {}; // trip name -> leaflet marker
-
-  function el(tag, cls, text) {
-    var e = document.createElement(tag);
-    if (cls) e.className = cls;
-    if (text != null) e.textContent = text;
-    return e;
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
-  function esc(s) { return String(s); }
+  function bucket(v) { return v >= 4 ? "v3" : v >= 2 ? "v2" : "v1"; }
+  function visitLabel(c) {
+    if (c.yearsUnknown) return "at least 1 visit";
+    return c.visits + (c.visits === 1 ? " visit" : " visits");
+  }
+  function $(id) { return document.getElementById(id); }
 
-  /* ---------- stats ---------- */
-  function renderStats(trips) {
-    var countries = {};
-    var years = [];
-    trips.forEach(function (t) {
-      countries[t.country] = 1;
-      t.years.forEach(function (y) { if (/^\d{4}$/.test(y)) years.push(+y); });
-    });
-    var span = years.length ? Math.min.apply(null, years) + "–" + Math.max.apply(null, years) : "–";
-    var stats = [
-      [trips.length, "destinations"],
-      [Object.keys(countries).length, "countries"],
-      [REGION_ORDER.length, "regions"],
-      [span, "traveled"]
-    ];
-    var wrap = document.getElementById("stats");
-    wrap.innerHTML = "";
-    stats.forEach(function (s) {
-      var d = el("div", "stat");
-      d.appendChild(el("b", null, esc(s[0])));
-      d.appendChild(el("span", null, s[1]));
-      wrap.appendChild(d);
-    });
+  function load() {
+    return Promise.all([
+      fetch("data/trips.json").then(function (r) { return r.json(); }),
+      fetch("data/countries.json").then(function (r) { return r.json(); }),
+      fetch("data/world.svg").then(function (r) { return r.text(); })
+    ]);
   }
 
-  /* ---------- map ---------- */
-  var map;
-  function initMap(trips) {
-    map = L.map("map", { scrollWheelZoom: false }).setView([28, 8], 2);
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      maxZoom: 18
-    }).addTo(map);
-    map.on("focus", function () { map.scrollWheelZoom.enable(); });
-    map.on("blur", function () { map.scrollWheelZoom.disable(); });
-
-    trips.forEach(function (t) {
-      var color = REGION_COLORS[t.region] || "#6ea8fe";
-      var icon = L.divIcon({
-        className: "",
-        html: '<div class="pin" style="background:' + color + '"></div>',
-        iconSize: [14, 14],
-        iconAnchor: [7, 7]
-      });
-      var m = L.marker([t.lat, t.lng], { icon: icon, title: t.name })
-        .addTo(map)
-        .bindTooltip(esc(t.pin), { className: "pin-tip", direction: "top", offset: [0, -8] })
-        .on("click", function () { focusCard(t.name); });
-      markers[t.name] = m;
-    });
+  function renderHero(trips, countries) {
+    var visits = countries.reduce(function (s, c) { return s + c.visits; }, 0);
+    var unknown = countries.some(function (c) { return c.yearsUnknown; });
+    var visitStr = visits + (unknown ? "+" : "");
+    var conts = {};
+    countries.forEach(function (c) { conts[c.continent] = true; });
+    $("stat-countries").textContent = countries.length;
+    $("stat-visits").textContent = visitStr;
+    $("stat-continents").textContent = Object.keys(conts).length;
+    $("stat-trips").textContent = trips.length;
+    $("foot-count").textContent = countries.length + " countries · " + visitStr + " visits";
   }
 
-  function focusCard(name) {
-    var card = document.querySelector('[data-trip="' + CSS.escape(name) + '"]');
-    if (!card) return;
-    card.scrollIntoView({ behavior: "smooth", block: "center" });
-    card.classList.add("flash");
-    setTimeout(function () { card.classList.remove("flash"); }, 1600);
-  }
+  function renderMap(countries) {
+    var wrap = $("map-wrap"), tip = $("map-tip");
+    var loading = $("map-loading");
+    if (loading) loading.remove();
 
-  /* ---------- cards ---------- */
-  function bannerStyle(region) {
-    var c = REGION_COLORS[region] || "#6ea8fe";
-    return "background: linear-gradient(135deg, " + c + "cc, " + c + "55 60%, #161b26);";
-  }
+    var byIso = {};
+    countries.forEach(function (c) { byIso[c.iso] = c; });
 
-  function renderCards() {
-    var wrap = document.getElementById("cards");
-    wrap.innerHTML = "";
-    var q = state.query.trim().toLowerCase();
-    var shown = 0;
-
-    state.trips.forEach(function (t) {
-      if (state.region !== "All" && t.region !== state.region) return;
-      if (q) {
-        var hay = (t.name + " " + t.pin + " " + t.country + " " + t.region + " " +
-          t.years.join(" ") + " " + t.notes + " " +
-          t.places.map(function (p) { return p.name + " " + p.address + " " + p.notes; }).join(" ")
-        ).toLowerCase();
-        if (hay.indexOf(q) === -1) return;
+    var svg = wrap.querySelector("svg");
+    var shapes = svg.querySelectorAll("path, circle");
+    shapes.forEach(function (p) {
+      var iso = p.id.replace(/^c-/, "");
+      var c = byIso[iso];
+      if (c) {
+        p.classList.add("visited", bucket(c.visits));
+        p.dataset.iso = iso;
+      } else {
+        p.classList.add("unvisited");
       }
-      shown++;
-      var card = el("article", "card");
-      card.setAttribute("data-trip", t.name);
+    });
 
-      var banner = el("div", "card-banner");
-      banner.setAttribute("style", bannerStyle(t.region));
-      banner.appendChild(el("span", "card-region", t.region));
-      banner.appendChild(el("h2", null, t.pin));
-      banner.appendChild(el("div", "country", t.country));
-      card.appendChild(banner);
+    function showTip(c, x, y) {
+      var dests = c.destinations.map(function (d) { return d.name; }).join(" · ");
+      tip.innerHTML = "<strong>" + esc(c.country) + "</strong>" +
+        '<span class="tip-visits">' + visitLabel(c) + "</span>" +
+        (dests ? '<div class="tip-dests">' + esc(dests) + "</div>" : "");
+      tip.hidden = false;
+      moveTip(x, y);
+    }
+    function moveTip(x, y) {
+      var pad = 12;
+      var r = tip.getBoundingClientRect();
+      var left = Math.min(Math.max(x, r.width / 2 + pad), window.innerWidth - r.width / 2 - pad);
+      tip.style.left = left + "px";
+      tip.style.top = Math.max(y, r.height + pad + 8) + "px";
+    }
+    function hideTip() { tip.hidden = true; }
 
-      var body = el("div", "card-body");
-
-      if (t.years.length) {
-        var years = el("div", "years");
-        t.years.forEach(function (y) { years.appendChild(el("span", "year", y)); });
-        body.appendChild(years);
+    svg.addEventListener("mousemove", function (e) {
+      var t = e.target.closest("path.visited, circle.visited");
+      if (t) { showTip(byIso[t.dataset.iso], e.clientX, e.clientY); }
+      else hideTip();
+    });
+    svg.addEventListener("mouseleave", hideTip);
+    // touch: tap toggles the tooltip
+    var openIso = null;
+    svg.addEventListener("click", function (e) {
+      var t = e.target.closest("path.visited, circle.visited");
+      if (t && t.dataset.iso !== openIso) {
+        openIso = t.dataset.iso;
+        showTip(byIso[openIso], e.clientX, e.clientY);
+      } else {
+        openIso = null;
+        hideTip();
       }
-      if (t.notes) body.appendChild(el("p", "notes", t.notes));
+    });
+  }
 
-      if (t.places.length) {
-        var groups = {};
-        t.places.forEach(function (p) { (groups[p.type] = groups[p.type] || []).push(p); });
-        Object.keys(groups).sort().forEach(function (type) {
-          var sec = el("div", "places");
-          sec.appendChild(el("h3", null, type === "See" ? "Sights" : type === "Eat" ? "Food & Drink" : type === "Sleep" ? "Stay" : type));
-          groups[type].forEach(function (p) {
-            var d = el("div", "place");
-            var head = el("div", null);
-            head.appendChild(el("span", "p-name", p.name));
-            head.appendChild(el("span", "p-type", p.type));
-            d.appendChild(head);
-            if (p.address) d.appendChild(el("div", "p-addr", p.address));
-            if (p.notes) d.appendChild(el("div", "p-note", p.notes));
-            sec.appendChild(d);
-          });
-          body.appendChild(sec);
+  function renderContinents(data) {
+    var grid = $("continent-grid");
+    var countries = data.countries, targets = data.targets || {}, notes = data.targetNotes || {};
+    grid.innerHTML = CONTINENTS.map(function (cont, i) {
+      var visited = countries.filter(function (c) { return c.continent === cont.name; });
+      var n = visited.length;
+      var pct = Math.round((n / cont.total) * 1000) / 10;
+      var target = targets[cont.name];
+      var targetHtml = target
+        ? "<b>" + esc(target) + "</b>" + (notes[cont.name] ? '<span class="target-note">' + esc(notes[cont.name]) + "</span>" : "")
+        : "<b>Not set yet</b>";
+      return '<div class="continent-card" style="animation-delay:' + (i * 60) + 'ms">' +
+        '<div class="continent-row"><div><p class="continent-name">' + esc(cont.name) + "</p>" +
+        '<p class="continent-sub"><b>' + n + "</b> of " + cont.total + " countries</p></div>" +
+        '<span class="continent-pct">' + pct + "%</span></div>" +
+        '<div class="bar"><i data-w="' + pct + '"></i></div>' +
+        '<p class="next-target' + (target ? "" : " unset") + '">Next target: ' + targetHtml + "</p>" +
+        "</div>";
+    }).join("");
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        grid.querySelectorAll(".bar > i").forEach(function (el) {
+          el.style.width = el.getAttribute("data-w") + "%";
         });
-      }
-
-      if (t.album) {
-        var a = el("a", "album-link", "View photo album \u2197");
-        a.href = t.album;
-        a.target = "_blank";
-        a.rel = "noopener";
-        body.appendChild(a);
-      }
-
-      card.appendChild(body);
-      wrap.appendChild(card);
-    });
-
-    document.getElementById("empty").classList.toggle("hidden", shown > 0);
-    // dim markers that are filtered out
-    Object.keys(markers).forEach(function (name) {
-      var t = state.trips.find(function (x) { return x.name === name; });
-      var visible = t && (state.region === "All" || t.region === state.region);
-      var mEl = markers[name].getElement();
-      if (mEl) mEl.style.opacity = visible ? "1" : "0.18";
-    });
-  }
-
-  /* ---------- controls ---------- */
-  function initControls() {
-    var chips = document.getElementById("regionChips");
-    ["All"].concat(REGION_ORDER).forEach(function (r) {
-      var b = el("button", "chip" + (r === "All" ? " active" : ""), r);
-      b.setAttribute("role", "tab");
-      b.addEventListener("click", function () {
-        state.region = r;
-        chips.querySelectorAll(".chip").forEach(function (c) {
-          c.classList.toggle("active", c.textContent === r);
-        });
-        renderCards();
       });
-      chips.appendChild(b);
-    });
-    document.getElementById("search").addEventListener("input", function (e) {
-      state.query = e.target.value;
-      renderCards();
     });
   }
 
-  /* ---------- boot ---------- */
-  fetch("data/trips.json")
-    .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
-    .then(function (trips) {
-      state.trips = trips;
-      renderStats(trips);
-      initMap(trips);
-      initControls();
-      renderCards();
-    })
-    .catch(function (err) {
-      document.getElementById("cards").innerHTML =
-        '<p class="empty">Could not load trip data.</p>';
-      console.error(err);
+  function renderCountries(countries, active) {
+    var groups = $("country-groups");
+    var list = active === "All" ? countries.slice() : countries.filter(function (c) { return c.continent === active; });
+    var order = CONTINENTS.map(function (c) { return c.name; });
+    list.sort(function (a, b) {
+      var d = order.indexOf(a.continent) - order.indexOf(b.continent);
+      return d !== 0 ? d : (b.visits - a.visits || a.country.localeCompare(b.country));
     });
+    var html = "", current = null;
+    list.forEach(function (c, i) {
+      if (c.continent !== current) {
+        if (current !== null) html += "</div></div>";
+        current = c.continent;
+        var n = list.filter(function (x) { return x.continent === current; }).length;
+        html += '<div class="country-group"><h3>' + esc(current) + ' <span class="g-count">' + n + "</span></h3>" + '<div class="country-grid">';
+      }
+      var dests = c.destinations.map(function (d) { return d.name; }).join(" · ");
+      html += '<div class="country-card" style="animation-delay:' + Math.min(i * 30, 300) + 'ms">' +
+        "<div><p class=\"country-name\">" + esc(c.country) + "</p>" +
+        (dests ? '<p class="country-dests">' + esc(dests) + "</p>" : "") + "</div>" +
+        '<span class="visit-pill">' + visitLabel(c) + "</span></div>";
+    });
+    if (current !== null) html += "</div></div>";
+    groups.innerHTML = html || '<p class="empty">No countries here yet.</p>';
+  }
+
+  function renderCountryFilters(countries, onChange) {
+    var box = $("country-filters");
+    var present = [];
+    CONTINENTS.forEach(function (c) {
+      if (countries.some(function (x) { return x.continent === c.name; })) present.push(c.name);
+    });
+    var opts = ["All"].concat(present);
+    box.innerHTML = opts.map(function (o, i) {
+      return '<button class="chip' + (i === 0 ? " active" : "") + '" role="tab" data-f="' + esc(o) + '">' + esc(o) + "</button>";
+    }).join("");
+    box.addEventListener("click", function (e) {
+      var b = e.target.closest(".chip");
+      if (!b) return;
+      box.querySelectorAll(".chip").forEach(function (x) { x.classList.remove("active"); });
+      b.classList.add("active");
+      onChange(b.getAttribute("data-f"));
+    });
+  }
+
+  function latestYear(t) {
+    if (!t.years || !t.years.length) return 0;
+    return Math.max.apply(null, t.years.map(Number));
+  }
+
+  function renderJournal(trips) {
+    var cards = $("journal-cards"), empty = $("journal-empty");
+    var search = $("journal-search"), regions = $("region-filters");
+    var regionList = [];
+    trips.forEach(function (t) { if (regionList.indexOf(t.region) === -1) regionList.push(t.region); });
+    var activeRegion = "All", query = "";
+
+    regions.innerHTML = ["All"].concat(regionList).map(function (r, i) {
+      return '<button class="chip' + (i === 0 ? " active" : "") + '" role="tab" data-r="' + esc(r) + '">' + esc(r) + "</button>";
+    }).join("");
+    regions.addEventListener("click", function (e) {
+      var b = e.target.closest(".chip");
+      if (!b) return;
+      regions.querySelectorAll(".chip").forEach(function (x) { x.classList.remove("active"); });
+      b.classList.add("active");
+      activeRegion = b.getAttribute("data-r");
+      draw();
+    });
+    search.addEventListener("input", function () { query = search.value.trim().toLowerCase(); draw(); });
+
+    function matches(t) {
+      if (activeRegion !== "All" && t.region !== activeRegion) return false;
+      if (!query) return true;
+      var hay = [t.name, t.country, t.notes, (t.years || []).join(" ")]
+        .concat((t.places || []).map(function (p) { return p.name + " " + p.address + " " + p.notes; }))
+        .join(" ").toLowerCase();
+      return hay.indexOf(query) !== -1;
+    }
+
+    function draw() {
+      var list = trips.filter(matches).sort(function (a, b) { return latestYear(b) - latestYear(a); });
+      empty.hidden = list.length > 0;
+      cards.innerHTML = list.map(function (t, i) {
+        var years = (t.years || []).map(function (y) { return '<span class="year-tag">' + esc(y) + "</span>"; }).join("");
+        var notes = t.notes ? '<p class="trip-notes">' + esc(t.notes) + "</p>" : "";
+        var places = (t.places && t.places.length) ? '<ul class="trip-places">' + t.places.map(function (p) {
+          return "<li><span class=\"p-type\">" + esc(p.type) + "</span>" + esc(p.name) +
+            (p.address ? '<span class="p-addr">' + esc(p.address) + "</span>" : "") +
+            (p.notes ? '<span class="p-note">' + esc(p.notes) + "</span>" : "") + "</li>";
+        }).join("") + "</ul>" : "";
+        var album = t.album ? '<div class="trip-foot"><a class="album-link" href="' + esc(t.album) + '" target="_blank" rel="noopener">📷 Photo album</a></div>' : "";
+        return '<article class="trip-card" style="animation-delay:' + Math.min(i * 30, 300) + 'ms">' +
+          '<div class="trip-top"><div><p class="trip-country">' + esc(t.country) + '</p>' +
+          '<h3 class="trip-name">' + esc(t.name) + "</h3></div></div>" +
+          (years ? '<div class="year-tags">' + years + "</div>" : "") +
+          notes + places + album + "</article>";
+      }).join("");
+    }
+    draw();
+  }
+
+  load().then(function (res) {
+    var trips = res[0], data = res[1], svgText = res[2];
+    var countries = data.countries;
+    renderHero(trips, countries);
+    $("map-wrap").insertAdjacentHTML("afterbegin", svgText);
+    renderMap(countries);
+    renderContinents(data);
+    renderCountryFilters(countries, function (f) { renderCountries(countries, f); });
+    renderCountries(countries, "All");
+    renderJournal(trips);
+  }).catch(function (err) {
+    var loading = $("map-loading");
+    if (loading) loading.textContent = "Couldn't load the map data. Please refresh.";
+    // eslint-disable-next-line no-console
+    console.error(err);
+  });
 })();

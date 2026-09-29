@@ -3,45 +3,79 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Travel Notes</title>
-<meta name="description" content="Places we've traveled — an interactive travel journal.">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<title>Travel Notes · The Yu Family Atlas</title>
+<meta name="description" content="Every country we've visited, mapped. A family travel atlas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="site-header">
-  <div class="header-inner">
-    <div>
-      <h1>Travel Notes</h1>
-      <p class="tagline">Everywhere we've been, on one map.</p>
-    </div>
+<div class="bg-glow" aria-hidden="true"></div>
+
+<header class="hero">
+  <p class="eyebrow">The Yu Family Atlas</p>
+  <h1>Travel Notes</h1>
+  <p class="lede">Every country we've set foot in — mapped, counted, and journaled.</p>
+  <div class="stats" id="hero-stats">
+    <div class="stat"><span class="stat-num" id="stat-countries">–</span><span class="stat-label">countries</span></div>
+    <div class="stat"><span class="stat-num" id="stat-visits">–</span><span class="stat-label">visits</span></div>
+    <div class="stat"><span class="stat-num" id="stat-continents">–</span><span class="stat-label">continents</span></div>
+    <div class="stat"><span class="stat-num" id="stat-trips">–</span><span class="stat-label">trips journaled</span></div>
   </div>
 </header>
 
-<section class="hero">
-  <div class="stats" id="stats"></div>
-</section>
-
-<section class="map-section">
-  <div id="map" aria-label="World map of visited destinations"></div>
-  <p class="map-hint">Tap a pin to jump to that trip.</p>
-</section>
-
-<section class="controls">
-  <div class="chips" id="regionChips" role="tablist" aria-label="Filter by region"></div>
-  <input id="search" type="search" placeholder="Search destinations, countries, places…" aria-label="Search trips">
-</section>
-
 <main>
-  <div class="cards" id="cards"></div>
-  <p class="empty hidden" id="empty">No trips match your search.</p>
+  <section class="panel map-panel" aria-label="World map">
+    <div class="panel-head">
+      <h2>World map</h2>
+      <div class="legend" aria-hidden="true">
+        <span class="legend-item"><i class="sw v3"></i>4+ visits</span>
+        <span class="legend-item"><i class="sw v2"></i>2–3</span>
+        <span class="legend-item"><i class="sw v1"></i>1</span>
+        <span class="legend-item"><i class="sw un"></i>not yet</span>
+      </div>
+    </div>
+    <div class="map-wrap" id="map-wrap">
+      <div class="map-loading" id="map-loading">Drawing the world…</div>
+    </div>
+    <div class="map-tip" id="map-tip" hidden></div>
+    <p class="hint">Tap a colored country to see how many times we've been.</p>
+  </section>
+
+  <section aria-label="Continents">
+    <div class="panel-head">
+      <h2>Continents</h2>
+    </div>
+    <div class="continent-grid" id="continent-grid"></div>
+    <p class="fine">Counts include territories (Aruba, Bermuda, Puerto Rico); continent totals use standard country counts. Visit counts are unique trip years from the journal.</p>
+  </section>
+
+  <section aria-label="Countries visited">
+    <div class="panel-head">
+      <h2>Countries visited</h2>
+      <div class="chips" id="country-filters" role="tablist" aria-label="Filter by continent"></div>
+    </div>
+    <div id="country-groups"></div>
+  </section>
+
+  <section aria-label="Travel journal">
+    <div class="panel-head">
+      <h2>Travel journal</h2>
+    </div>
+    <div class="journal-tools">
+      <input type="search" id="journal-search" placeholder="Search trips, places, notes…" aria-label="Search trips">
+      <div class="chips" id="region-filters" role="tablist" aria-label="Filter by region"></div>
+    </div>
+    <div class="cards" id="journal-cards"></div>
+    <p class="empty" id="journal-empty" hidden>No trips match your search.</p>
+  </section>
 </main>
 
 <footer>
-  <p>Travel Notes · a personal travel journal</p>
+  <p>Made for the family · <span id="foot-count"></span></p>
 </footer>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
