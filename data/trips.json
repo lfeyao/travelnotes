@@ -33,6 +33,19 @@
     "album": "https://photos.google.com/share/AF1QipMPPgK-mfGgok5cBnC7fL3WbHpsXNwQ06lE_s4bb3RJVKaTa1zpyuiEH8cPVqzyJg?key=azdxeGVPNGQweU9zVjF1YTdja0JiLXBaNS1xX3R3"
   },
   {
+    "name": "Capri",
+    "country": "Italy",
+    "region": "Europe",
+    "years": [
+      "2026"
+    ],
+    "notes": "Enchanted Princess cruise, Jun 8",
+    "places": [],
+    "album": "https://photos.app.goo.gl/96Cagc1pjn1CW8qB6",
+    "lat": 40.5507,
+    "lng": 14.2423
+  },
+  {
     "name": "Istanbul",
     "country": "Türkiye",
     "region": "Europe",
