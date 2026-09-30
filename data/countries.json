@@ -55,6 +55,50 @@
       ]
     },
     {
+      "country": "United States",
+      "iso": "840",
+      "continent": "North America",
+      "visits": 4,
+      "destinations": [
+        {
+          "name": "Zion National Park",
+          "years": [
+            "2015"
+          ]
+        },
+        {
+          "name": "Grand Canyon",
+          "years": [
+            "2011"
+          ]
+        },
+        {
+          "name": "Hawaii",
+          "years": [
+            "2011"
+          ]
+        },
+        {
+          "name": "Joshua Tree",
+          "years": [
+            "2015"
+          ]
+        },
+        {
+          "name": "Alaska",
+          "years": [
+            "2025"
+          ]
+        },
+        {
+          "name": "Sequoia National Park",
+          "years": [
+            "2026"
+          ]
+        }
+      ]
+    },
+    {
       "country": "Italy",
       "iso": "380",
       "continent": "Europe",
@@ -145,50 +189,6 @@
           "name": "Majorca",
           "years": [
             "2014"
-          ]
-        }
-      ]
-    },
-    {
-      "country": "United States",
-      "iso": "840",
-      "continent": "North America",
-      "visits": 3,
-      "destinations": [
-        {
-          "name": "Zion National Park",
-          "years": [
-            "2015"
-          ]
-        },
-        {
-          "name": "Grand Canyon",
-          "years": [
-            "2011"
-          ]
-        },
-        {
-          "name": "Hawaii",
-          "years": [
-            "2011"
-          ]
-        },
-        {
-          "name": "Joshua Tree",
-          "years": [
-            "2015"
-          ]
-        },
-        {
-          "name": "Alaska",
-          "years": [
-            "2025"
-          ]
-        },
-        {
-          "name": "Sequoia National Park",
-          "years": [
-            "2015"
           ]
         }
       ]
