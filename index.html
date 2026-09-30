@@ -10,21 +10,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
-<body class="locked">
+<body>
 <div class="bg-glow" aria-hidden="true"></div>
 
-<div class="lock" id="lock" role="dialog" aria-modal="true" aria-labelledby="lock-title">
-  <div class="lock-card" id="lock-card">
-    <p class="eyebrow">The Yu Family Atlas</p>
-    <h2 id="lock-title">Travel Notes</h2>
-    <p class="lock-sub">This atlas is private. Enter the password to continue.</p>
-    <form id="lock-form" autocomplete="off">
-      <input type="password" id="lock-pass" placeholder="Password" aria-label="Password" autocomplete="current-password">
-      <button type="submit">Unlock</button>
-    </form>
-    <p class="lock-error" id="lock-error" hidden>Wrong password — try again.</p>
-  </div>
-</div>
+
 
 <header class="hero">
   <p class="eyebrow">The Yu Family Atlas</p>
@@ -89,7 +78,7 @@
   <p>Made for the family · <span id="foot-count"></span></p>
 </footer>
 
-<script src="lock.js"></script>
+
 <script src="app.js"></script>
 </body>
 </html>
