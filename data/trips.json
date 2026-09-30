@@ -445,6 +445,19 @@
     "lng": 135.5023
   },
   {
+    "name": "Kobe",
+    "country": "Japan",
+    "region": "Asia",
+    "years": [
+      "2022"
+    ],
+    "notes": "Dec 5–6, 2022",
+    "places": [],
+    "album": "https://photos.app.goo.gl/dZMYFdD17tygavA59",
+    "lat": 34.6901,
+    "lng": 135.1955
+  },
+  {
     "name": "Majorca",
     "pin": "Majorca",
     "country": "Spain",
