@@ -45,6 +45,20 @@ feeds) is fully retired; its travel data was migrated into
   (Africa 54, Asia 48, Europe 44, North America 23, South America 12,
   Oceania 14).
 
+## Privacy
+
+The site sits behind a client-side password gate (`lock.js`): visitors see
+a lock screen and the atlas only renders after the correct password is
+entered (stored as a SHA-256 hash, never in plain text). To change the
+password, replace `PASS_HASH` in `lock.js` with the hex SHA-256 of the new
+password (`echo -n "newpassword" | sha256sum`).
+
+Note the honest limit: GitHub Pages is static hosting, so the raw
+`data/*.json` files remain directly fetchable by anyone who knows the URLs,
+and the gate is bypassable via view-source. It keeps casual visitors out;
+real access control would mean moving off GitHub Pages (e.g. Cloudflare
+Access).
+
 ## Run locally
 
 Any static server works, e.g.:
