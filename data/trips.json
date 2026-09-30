@@ -816,5 +816,18 @@
         "notes": ""
       }
     ]
+  },
+  {
+    "name": "Bangkok",
+    "country": "Thailand",
+    "region": "Asia",
+    "years": [
+      "2018"
+    ],
+    "notes": "Jul 15–20, 2018",
+    "places": [],
+    "album": "https://photos.app.goo.gl/JHPWx5EewEnvdrDz8",
+    "lat": 13.7563,
+    "lng": 100.5018
   }
 ]

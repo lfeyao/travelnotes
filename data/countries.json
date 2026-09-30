@@ -502,6 +502,20 @@
       ]
     },
     {
+      "country": "Thailand",
+      "iso": "764",
+      "continent": "Asia",
+      "visits": 1,
+      "destinations": [
+        {
+          "name": "Bangkok",
+          "years": [
+            "2018"
+          ]
+        }
+      ]
+    },
+    {
       "country": "Türkiye",
       "iso": "792",
       "continent": "Europe",
