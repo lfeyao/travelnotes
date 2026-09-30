@@ -138,6 +138,44 @@
       ]
     },
     {
+      "country": "United States",
+      "iso": "840",
+      "continent": "North America",
+      "visits": 3,
+      "destinations": [
+        {
+          "name": "Zion National Park",
+          "years": [
+            "2015"
+          ]
+        },
+        {
+          "name": "Grand Canyon",
+          "years": [
+            "2011"
+          ]
+        },
+        {
+          "name": "Hawaii",
+          "years": [
+            "2011"
+          ]
+        },
+        {
+          "name": "Joshua Tree",
+          "years": [
+            "2015"
+          ]
+        },
+        {
+          "name": "Alaska",
+          "years": [
+            "2025"
+          ]
+        }
+      ]
+    },
+    {
       "country": "Aruba",
       "iso": "533",
       "continent": "South America",
@@ -241,38 +279,6 @@
           "years": [
             "2010",
             "2026"
-          ]
-        }
-      ]
-    },
-    {
-      "country": "United States",
-      "iso": "840",
-      "continent": "North America",
-      "visits": 2,
-      "destinations": [
-        {
-          "name": "Zion National Park",
-          "years": [
-            "2015"
-          ]
-        },
-        {
-          "name": "Grand Canyon",
-          "years": [
-            "2011"
-          ]
-        },
-        {
-          "name": "Hawaii",
-          "years": [
-            "2011"
-          ]
-        },
-        {
-          "name": "Joshua Tree",
-          "years": [
-            "2015"
           ]
         }
       ]
