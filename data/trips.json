@@ -856,5 +856,18 @@
     "album": "https://photos.app.goo.gl/Zj9w5BpyYsRK3caF8",
     "lat": 51.1784,
     "lng": -115.5708
+  },
+  {
+    "name": "Joshua Tree",
+    "country": "USA",
+    "region": "North America",
+    "years": [
+      "2015"
+    ],
+    "notes": "Sep 5, 2015",
+    "places": [],
+    "album": "https://photos.app.goo.gl/q9B429j5nw84An9w7",
+    "lat": 33.8734,
+    "lng": -115.901
   }
 ]
