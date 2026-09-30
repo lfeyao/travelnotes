@@ -419,6 +419,32 @@
     "places": []
   },
   {
+    "name": "Nara",
+    "country": "Japan",
+    "region": "Asia",
+    "years": [
+      "2022"
+    ],
+    "notes": "Dec 4, 2022",
+    "places": [],
+    "album": "https://photos.app.goo.gl/PtWSTq63txG3Lwz7A",
+    "lat": 34.6851,
+    "lng": 135.8048
+  },
+  {
+    "name": "Osaka",
+    "country": "Japan",
+    "region": "Asia",
+    "years": [
+      "2022"
+    ],
+    "notes": "Dec 6, 2022",
+    "places": [],
+    "album": "https://photos.app.goo.gl/L7FSSqiExZr8zXweA",
+    "lat": 34.6937,
+    "lng": 135.5023
+  },
+  {
     "name": "Majorca",
     "pin": "Majorca",
     "country": "Spain",

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-29",
+  "generated": "2026-09-30",
   "targets": {
     "Africa": null,
     "Asia": "Japan",
@@ -208,6 +208,18 @@
           "name": "Kyoto",
           "years": [
             "2014"
+          ]
+        },
+        {
+          "name": "Nara",
+          "years": [
+            "2022"
+          ]
+        },
+        {
+          "name": "Osaka",
+          "years": [
+            "2022"
           ]
         }
       ]
