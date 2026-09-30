@@ -236,6 +236,19 @@
     "lng": 12.49563
   },
   {
+    "name": "Pienza",
+    "country": "Italy",
+    "region": "Europe",
+    "years": [
+      "2026"
+    ],
+    "notes": "Enchanted Princess pre-cruise, May 31",
+    "places": [],
+    "album": "https://photos.app.goo.gl/Ve56yebUxEXx4pqh6",
+    "lat": 43.0771,
+    "lng": 11.6784
+  },
+  {
     "name": "Milan",
     "country": "Italy",
     "region": "Europe",
