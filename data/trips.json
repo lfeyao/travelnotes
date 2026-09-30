@@ -829,5 +829,18 @@
     "album": "https://photos.app.goo.gl/JHPWx5EewEnvdrDz8",
     "lat": 13.7563,
     "lng": 100.5018
+  },
+  {
+    "name": "Banff",
+    "country": "Canada",
+    "region": "North America",
+    "years": [
+      "2019"
+    ],
+    "notes": "Jul 20–21, 2019",
+    "places": [],
+    "album": "https://photos.app.goo.gl/Zj9w5BpyYsRK3caF8",
+    "lat": 51.1784,
+    "lng": -115.5708
   }
 ]

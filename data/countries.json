@@ -294,6 +294,20 @@
       ]
     },
     {
+      "country": "Canada",
+      "iso": "124",
+      "continent": "North America",
+      "visits": 1,
+      "destinations": [
+        {
+          "name": "Banff",
+          "years": [
+            "2019"
+          ]
+        }
+      ]
+    },
+    {
       "country": "Czech Republic",
       "iso": "203",
       "continent": "Europe",
